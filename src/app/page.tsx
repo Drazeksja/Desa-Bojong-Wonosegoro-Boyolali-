@@ -45,19 +45,19 @@ export default function HomeBojong() {
   // Hero Slides Data
   const heroSlides = [
     {
-      img: "/masjid_agung_demak.png",
+      img: "/1.jpeg",
       caption: "Pemandangan Wilayah Desa Bojong — Kecamatan Wonosegoro, Kabupaten Boyolali"
     },
     {
-      img: "/mangrove_morosari.jpg",
+      img: "/2.jpeg",
       caption: "Potensi Alam dan Lingkungan Hijau Desa Bojong"
     },
     {
-      img: "/wisata_bahari.jpg",
+      img: "/3.jpeg",
       caption: "Kawasan Pertanian dan Kearifan Lokal Warga Desa Bojong"
     },
     {
-      img: "/makam_sunan_kalijaga.jpg",
+      img: "/4.jpeg",
       caption: "Kegiatan Kemasyarakatan dan Kerukunan Warga Desa Bojong"
     }
   ];
@@ -271,7 +271,7 @@ export default function HomeBojong() {
                 {/* Title */}
                 <h1 className="text-white text-uppercase mb-2" style={{ fontWeight: 900, fontSize: 'clamp(2.3rem, 5.5vw, 4.2rem)', lineHeight: '1.15', letterSpacing: '0.5px', textShadow: '2px 2px 15px rgba(0,0,0,0.85)' }}>
                   Selamat Datang <br />
-                  <span style={{ color: '#fbbf24', textShadow: '0 0 25px rgba(251,191,36,0.6)' }}>di Desa Bojong</span>
+                  <span style={{ color: '', textShadow: '0 0 25px rgba(251,191,36,0.6)' }}>di Desa Bojong</span>
                 </h1>
                 
                 {/* Description */}
@@ -372,7 +372,7 @@ export default function HomeBojong() {
               <div className="card border-0 shadow-lg overflow-hidden" style={{ borderRadius: '16px' }}>
                 <div className="position-relative" style={{ height: '480px', background: 'linear-gradient(to bottom, #e2e8f0, #cbd5e1)' }}>
                   <Image 
-                    src="/bupati_new.jpg" 
+                    src="/gatot.webp" 
                     alt="Kepala Desa Bojong" 
                     fill 
                     className="object-fit-cover object-top"
@@ -380,7 +380,7 @@ export default function HomeBojong() {
                   <div className="position-absolute bottom-0 start-0 w-100 p-4 text-center" style={{ background: 'linear-gradient(to top, rgba(30, 58, 138, 0.95), transparent)' }}>
                     <h6 className="text-white fw-bold mb-0 small text-uppercase" style={{ fontSize: '10px', letterSpacing: '2px' }}>Kepala Desa Bojong</h6>
                     <div style={{ width: '40px', height: '2px', background: '#fbbf24', margin: '8px auto' }}></div>
-                    <h5 className="text-white fw-bold mb-0" style={{ fontSize: '1.1rem' }}>Kepala Desa</h5>
+                    <h5 className="text-white fw-bold mb-0" style={{ fontSize: '1.1rem' }}>Gatot Madiyo</h5>
                   </div>
                 </div>
               </div>
@@ -492,10 +492,10 @@ export default function HomeBojong() {
 
           <div className="row g-4 justify-content-center mb-4">
             {[
-              { name: "Kepala Desa", role: "Kepala Desa Bojong", img: "/bupati_new.jpg" },
-              { name: "Sekretaris Desa", role: "Sekretaris Desa", img: "/wakil_bupati_new.png" },
-              { name: "Kaur Keuangan", role: "Kepala Urusan Keuangan", img: "/bupati_new.jpg" },
-              { name: "Kasi Pemerintahan", role: "Kepala Seksi Pemerintahan", img: "/wakil_bupati_new.png" },
+              { name: "Gatot Madiyo", role: "Kepala Desa Bojong", img: "/gatot.webp" },
+              { name: "Yatmin", role: "Sekretaris Desa", img: "/yatmin.webp" },
+              { name: "Endang Suyamti", role: "Kepala Urusan Keuangan", img: "/endang.webp" },
+              { name: "Sutarno", role: "Kepala Seksi Pemerintahan", img: "/sutarno.webp" },
             ].map((person, i) => (
               <div className="col-6 col-md-3" key={i}>
                 <div className="card border-0 shadow-sm h-100 overflow-hidden">
@@ -552,10 +552,10 @@ export default function HomeBojong() {
                    <div className="card border-0 shadow-sm mb-4">
                      <div className="position-relative" style={{ height: '400px' }}>
                         <Image 
-                          src={newsData[activeNewsTab].featured.img} 
-                          alt="Featured" 
+                          src="/musren.webp" 
+                          alt="Musrengbangdes 2026" 
                           fill 
-                          className="object-fit-cover rounded-top"
+                          className="object-fit-cover object-top"
                         />
                         <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white" style={{ background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' }}>
                            <div className="d-flex gap-2 mb-2">
