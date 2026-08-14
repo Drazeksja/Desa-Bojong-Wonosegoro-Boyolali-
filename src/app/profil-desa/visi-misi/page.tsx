@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { Star, Award } from "lucide-react";
 
 export default function VisiMisiDesa() {
   const missions = [
@@ -16,53 +16,179 @@ export default function VisiMisiDesa() {
   return (
     <main className="pb-5 bg-white min-vh-100 pt-5">
       <div className="container mt-5 pt-4" style={{ maxWidth: '860px' }}>
-        
-        
-        {/* Page Header */}
+
+        {/* Page Header - TETAP SEPERTI ASLI */}
         <div className="mb-5 text-center border-bottom border-secondary border-opacity-25 pb-4">
-          <h6 className="fw-bold text-uppercase" style={{ color: 'var(--accent)', letterSpacing: '3px', fontSize: '0.75rem' }}>Profil Desa Bojong</h6>
-          <h1 className="display-4 fw-bold mt-2" style={{ color: 'var(--primary-dark)', fontFamily: 'serif' }}>Visi & Misi</h1>
-          <p className="text-muted mt-3 mx-auto" style={{ maxWidth: '540px', lineHeight: 1.7 }}>
-            Arah kebijakan dan komitmen Pemerintah Desa Bojong dalam melayani dan membangun masyarakat.
+          <h6
+            className="fw-bold text-uppercase"
+            style={{
+              color: 'var(--accent)',
+              letterSpacing: '3px',
+              fontSize: '0.75rem'
+            }}
+          >
+            Profil Desa Bojong
+          </h6>
+
+          <h1
+            className="display-4 fw-bold mt-2"
+            style={{
+              color: 'var(--primary-dark)',
+              fontFamily: 'serif'
+            }}
+          >
+            Visi & Misi
+          </h1>
+
+          <p
+            className="text-muted mt-3 mx-auto"
+            style={{
+              maxWidth: '540px',
+              lineHeight: 1.7
+            }}
+          >
+            Arah kebijakan dan komitmen Pemerintah Desa Bojong dalam melayani
+            dan membangun masyarakat.
           </p>
         </div>
 
-        {/* Visi Section */}
-        <section className="mb-5 pb-5 border-bottom border-secondary border-opacity-25">
-          <h2 className="text-center fw-bold text-uppercase mb-2" style={{ color: 'var(--primary-dark)', letterSpacing: '3px', fontSize: '0.85rem' }}>Visi</h2>
-          <div className="text-center mt-4 mb-4">
-            <div className="mx-auto" style={{ width: '40px', height: '2px', backgroundColor: 'var(--primary-dark)' }}></div>
+
+        {/* ================= VISI ================= */}
+        <section className="mb-5">
+
+          <div
+            className="position-relative text-center p-5"
+            style={{
+              backgroundColor: '#172554',
+              borderRadius: '22px',
+              minHeight: '235px'
+            }}
+          >
+
+            {/* Icon + Judul */}
+            <div
+              className="d-flex justify-content-center align-items-center gap-3 mb-4"
+              style={{ color: '#fff' }}
+            >
+              <Star
+                size={34}
+                strokeWidth={2}
+              />
+
+              <h2
+                className="fw-bold mb-0"
+                style={{
+                  color: '#fff',
+                  fontSize: '1.6rem'
+                }}
+              >
+                Visi
+              </h2>
+            </div>
+
+
+            {/* Isi Visi */}
+            <blockquote className="mb-0">
+              <p
+                className="display-6 fw-bold mb-4"
+                style={{
+                  color: '#fff',
+                  fontFamily: 'serif',
+                  lineHeight: 1.5
+                }}
+              >
+                &ldquo;Membetulkan yang Kurang Betul dan Meluruskan yang Kurang Lurus&rdquo;
+              </p>
+
+              <p
+                className="mb-0"
+                style={{
+                  color: '#fff',
+                  fontSize: '0.95rem',
+                  letterSpacing: '1px'
+                }}
+              >
+                RPJM Desa Tahun 2020 — 2027
+              </p>
+            </blockquote>
+
           </div>
-          
-          <blockquote className="text-center mx-auto py-4" style={{ maxWidth: '700px' }}>
-            <p className="display-6 fw-bold mb-4" style={{ color: 'var(--text-main)', fontFamily: 'serif', lineHeight: 1.5 }}>
-              &ldquo;Membetulkan yang Kurang Betul dan Meluruskan yang Kurang Lurus&rdquo;
-            </p>
-            <p className="text-muted mb-0" style={{ fontSize: '0.95rem', letterSpacing: '1px' }}>
-              RPJM Desa Tahun 2020 — 2027
-            </p>
-          </blockquote>
+
         </section>
 
-        {/* Misi Section */}
+
+        {/* ================= MISI ================= */}
         <section className="mb-5">
-          <h2 className="text-center fw-bold text-uppercase mb-2" style={{ color: 'var(--primary-dark)', letterSpacing: '3px', fontSize: '0.85rem' }}>Misi</h2>
-          <div className="text-center mt-4 mb-5">
-            <div className="mx-auto" style={{ width: '40px', height: '2px', backgroundColor: 'var(--primary-dark)' }}></div>
+
+          {/* Judul Misi */}
+          <div className="text-center mb-5">
+
+            <div
+              className="d-flex justify-content-center align-items-center gap-3"
+            >
+              <Award
+                size={34}
+                strokeWidth={2}
+                style={{
+                  color: '#172554'
+                }}
+              />
+
+              <h2
+                className="fw-bold mb-0"
+                style={{
+                  color: '#172554',
+                  fontSize: '1.8rem'
+                }}
+              >
+                Misi
+              </h2>
+            </div>
+
+            <div
+              className="mx-auto mt-4"
+              style={{
+                width: '40px',
+                height: '2px',
+                backgroundColor: '#172554'
+              }}
+            />
+
           </div>
 
-          <div className="mx-auto" style={{ maxWidth: '720px' }}>
+
+          {/* Daftar Misi */}
+          <div className="mx-auto">
+
             {missions.map((misi, i) => (
-              <div key={i} className="d-flex gap-3 mb-4 pb-4 border-bottom border-secondary border-opacity-10" style={{ lineHeight: 1.7 }}>
-                <span className="fw-bold flex-shrink-0" style={{ color: 'var(--primary-dark)', fontFamily: 'serif', fontSize: '1.5rem', minWidth: '32px' }}>
-                  {i + 1}.
-                </span>
-                <p className="mb-0" style={{ fontSize: '1.05rem', textAlign: 'justify', color: '#374151' }}>
+              <div
+                key={i}
+                className="text-center mb-3 p-4"
+                style={{
+                  backgroundColor: '#f8fbff',
+                  border: '1px solid rgba(37, 99, 235, 0.15)',
+                  borderRadius: '20px',
+                  lineHeight: 1.7
+                }}
+              >
+
+                <p
+                  className="mb-0 mx-auto"
+                  style={{
+                    fontSize: '1.05rem',
+                    color: '#374151',
+                    textAlign: 'center',
+                    maxWidth: '700px'
+                  }}
+                >
                   {misi}
                 </p>
+
               </div>
             ))}
+
           </div>
+
         </section>
 
       </div>

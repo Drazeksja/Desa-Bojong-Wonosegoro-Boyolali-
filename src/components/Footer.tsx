@@ -17,7 +17,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-white-50 small mb-4 text-justify">
-              Website resmi Desa Bojong — media informasi, layanan warga, dan promosi potensi desa.
+              Website resmi Desa Bojong : media informasi, layanan warga, dan promosi potensi desa.
             </p>
             <div className="d-flex gap-3">
               {[1,2,3,4].map(i => (

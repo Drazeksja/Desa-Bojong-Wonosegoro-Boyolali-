@@ -14,7 +14,7 @@ type Block =
   | { type: "law"; ref: string; text: string }
   | { type: "heading"; text: string }
   | { type: "section"; code: string; title: string; items: ListItem[] }
-  | { type: "list"; items: string[]; numbered?: boolean }
+  | { type: "list"; items: ListItem[]; numbered?: boolean }
   | { type: "note"; title: string; items: string[] };
 
 interface ProcedureItem {

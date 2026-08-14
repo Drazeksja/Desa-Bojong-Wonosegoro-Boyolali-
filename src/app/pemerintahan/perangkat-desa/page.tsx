@@ -37,7 +37,7 @@ export default function PerangkatDesa() {
           </p>
         </div>
 
-        {/* Deskripsi & Hierarki Garis Komando */}
+        {/* Deskripsi & Struktur Organisasi */}
         <section className="mb-5 pb-5 border-bottom border-secondary border-opacity-25">
           <h2 className="fw-bold text-uppercase mb-2" style={{ color: 'var(--primary-dark)', letterSpacing: '3px', fontSize: '0.85rem' }}>Hierarki Struktur Organisasi</h2>
           <div className="mt-3 mb-4" style={{ width: '40px', height: '2px', backgroundColor: 'var(--primary-dark)' }}></div>
@@ -47,66 +47,16 @@ export default function PerangkatDesa() {
             truktur Organisasi Pemerintah Desa Bojong menganut <span style={{ fontFamily: 'serif', fontWeight: 'bold', fontStyle: 'italic' }}>sistem garis komando</span>. Kepala Desa adalah pimpinan tertinggi pemerintah desa. Di bawahnya terdapat unsur staf/kesekretariatan yang dipimpin oleh Sekretaris Desa (membawahi Kaur Umum & Perencanaan serta Kaur Keuangan). Selain itu, Kepala Desa juga mengomandoi langsung unsur pelaksana teknis (Kepala Seksi/Kasi) dan pelaksana kewilayahan (Kepala Dusun).
           </p>
 
-          {/* Diagram Alur Struktur sederhana */}
-          <div className="mt-5 p-4" style={{ border: '1px solid #d1d5db', backgroundColor: '#f9fafb' }}>
-            <h5 className="text-center fw-bold mb-4 text-uppercase" style={{ fontFamily: 'serif', color: 'var(--primary-dark)', letterSpacing: '1px', fontSize: '1rem' }}>Bagan Garis Komando</h5>
-            
-            {/* Level 1: Kepala Desa */}
-            <div className="text-center mb-3">
-              <div className="d-inline-block px-4 py-2 bg-white" style={{ border: '2px solid var(--primary-dark)', minWidth: '220px' }}>
-                <div className="fw-bold text-uppercase small" style={{ color: 'var(--primary-dark)', letterSpacing: '1px' }}>Kepala Desa</div>
-                <div className="fw-bold fs-6" style={{ fontFamily: 'serif' }}>Gatot Madiyo</div>
-              </div>
-            </div>
-
-            <div className="text-center my-1">
-              <div className="mx-auto" style={{ width: '2px', height: '20px', backgroundColor: '#94a3b8' }}></div>
-            </div>
-
-            {/* Level 2: Sekretaris Desa */}
-            <div className="text-center mb-3">
-              <div className="d-inline-block px-4 py-2 bg-white" style={{ border: '1px solid #475569', minWidth: '200px' }}>
-                <div className="fw-bold text-uppercase small text-muted">Sekretaris Desa</div>
-                <div className="fw-bold fs-6" style={{ fontFamily: 'serif' }}>Yatmin</div>
-              </div>
-            </div>
-
-            <div className="text-center my-1">
-              <div className="mx-auto" style={{ width: '2px', height: '20px', backgroundColor: '#94a3b8' }}></div>
-            </div>
-
-            {/* Level 3: Sub-Unsur (Kaur, Kasi, Kadus) */}
-            <div className="row g-3 text-center pt-2">
-              <div className="col-md-4">
-                <div className="p-3 bg-white h-100" style={{ border: '1px dashed #cbd5e1' }}>
-                  <div className="fw-bold text-uppercase small text-primary-dark mb-2" style={{ fontSize: '0.75rem', letterSpacing: '1px' }}>Unsur Kesekretariatan (Kaur)</div>
-                  <div className="small fw-bold">Hermin Utari</div>
-                  <div className="text-muted" style={{ fontSize: '0.75rem' }}>Kaur Umum & Perencanaan</div>
-                  <hr className="my-2 opacity-25" />
-                  <div className="small fw-bold">Endang Suyamti</div>
-                  <div className="text-muted" style={{ fontSize: '0.75rem' }}>Kaur Keuangan</div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="p-3 bg-white h-100" style={{ border: '1px dashed #cbd5e1' }}>
-                  <div className="fw-bold text-uppercase small text-primary-dark mb-2" style={{ fontSize: '0.75rem', letterSpacing: '1px' }}>Pelaksana Teknis (Kasi)</div>
-                  <div className="small fw-bold">Sutarno</div>
-                  <div className="text-muted" style={{ fontSize: '0.75rem' }}>Kasi Pemerintahan</div>
-                  <hr className="my-2 opacity-25" />
-                  <div className="small text-muted italic">[Data Kosong]</div>
-                  <div className="text-muted" style={{ fontSize: '0.75rem' }}>Kasi Kesra & Pelayanan</div>
-                </div>
-              </div>
-              <div className="col-md-4">
-                <div className="p-3 bg-white h-100" style={{ border: '1px dashed #cbd5e1' }}>
-                  <div className="fw-bold text-uppercase small text-primary-dark mb-2" style={{ fontSize: '0.75rem', letterSpacing: '1px' }}>Pelaksana Kewilayahan (Kadus)</div>
-                  <div className="small fw-bold">Agus Sumarno (Kadus I)</div>
-                  <div className="small fw-bold mt-1">Aminanto (Kadus II)</div>
-                  <div className="small fw-bold mt-1">Ahmadi (Kadus III)</div>
-                  <div className="small text-muted italic mt-1">Kadus IV [Kosong]</div>
-                </div>
-              </div>
-            </div>
+          {/* Gambar Bagan Struktur Organisasi (landscape, besar) */}
+          <div className="mt-5 position-relative w-100" style={{ aspectRatio: '16 / 9' }}>
+            <Image
+              src="/struktur.webp"
+              alt="Bagan Struktur Organisasi Pemerintah Desa Bojong"
+              fill
+              className="object-fit-contain"
+              sizes="(min-width: 960px) 960px, 100vw"
+              priority
+            />
           </div>
         </section>
 

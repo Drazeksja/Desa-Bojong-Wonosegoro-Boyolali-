@@ -4,8 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { NewsItem } from "@/types/news";
 import { Plus, Pencil, Trash2, LogOut } from "lucide-react";
+
+interface NewsItem {
+  id: string;
+  title: string;
+  category: string | null;
+  status: "terbit" | "draft" | "arsip";
+  created_at: string;
+  content?: string | null;
+  image_url?: string | null;
+  slug?: string | null;
+}
 
 const NAVY = "#152238";
 const MAROON = "#6B2325";
