@@ -9,10 +9,11 @@ interface Message {
 }
 
 const SUGGESTED_QUESTIONS = [
-  "Apa layanan yang tersedia di desa?",
-  "Jadwal Posyandu kapan?",
-  "Berapa luas wilayah Desa Bojong?",
-  "Cara mengurus surat keterangan?",
+  "Halo Kang Bot! 👋",
+  "Jadwal Posyandu bulan ini?",
+  "Cara bikin surat keterangan?",
+  "Siapa kepala desa Bojong?",
+  "Ada UMKM apa di Desa Bojong?",
 ];
 
 export default function ChatbotWidget() {
@@ -20,7 +21,7 @@ export default function ChatbotWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "bot",
-      text: "Halo! Saya Asisten AI Desa Bojong. Ada yang bisa saya bantu? Anda bisa bertanya tentang layanan desa, profil desa, jadwal kegiatan, dan lainnya.",
+      text: "Halo! Saya Kang Bot 👋\n\nAsisten virtual resmi Desa Bojong, siap bantu kamu! 😄\n\nMau tanya soal layanan surat, jadwal posyandu, info desa, atau yang lainnya — langsung tanya aja, jangan malu-malu!",
       timestamp: new Date(),
     },
   ]);
@@ -139,11 +140,11 @@ export default function ChatbotWidget() {
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ color: "white", fontWeight: 700, fontSize: "0.95rem", lineHeight: 1.2 }}>
-              Asisten Desa Bojong
+              Kang Bot
             </div>
             <div style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.75rem", display: "flex", alignItems: "center", gap: "4px" }}>
               <span style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: "#4ade80", display: "inline-block" }} />
-              Powered by Gemini AI
+              Asisten Virtual Desa Bojong 🌿
             </div>
           </div>
           <button
@@ -181,9 +182,18 @@ export default function ChatbotWidget() {
                   color: msg.role === "user" ? "white" : "var(--text-main)",
                   fontSize: "0.875rem", lineHeight: 1.6,
                   border: msg.role === "bot" ? "1px solid var(--border)" : "none",
-                  whiteSpace: "pre-wrap", wordBreak: "break-word",
+                  wordBreak: "break-word",
                 }}>
-                  {msg.text}
+                  {msg.role === "bot" ? (
+                    msg.text.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        {i < msg.text.split("\n").length - 1 && <br />}
+                      </span>
+                    ))
+                  ) : (
+                    msg.text
+                  )}
                 </div>
                 <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "4px", paddingLeft: "4px", paddingRight: "4px" }}>
                   {formatTime(msg.timestamp)}
@@ -210,7 +220,7 @@ export default function ChatbotWidget() {
           {messages.length === 1 && !isLoading && (
             <div style={{ display: "flex", flexDirection: "column", gap: "6px", marginTop: "4px" }}>
               <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Pertanyaan Populer
+                Coba tanya ini 👇
               </div>
               {SUGGESTED_QUESTIONS.map((q, idx) => (
                 <button

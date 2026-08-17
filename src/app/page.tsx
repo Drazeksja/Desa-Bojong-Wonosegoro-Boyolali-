@@ -12,6 +12,7 @@ import {
   Clock, Heart, ShieldCheck, ScrollText, Home, HelpCircle, Star,
   ShoppingBag, MapPin, Megaphone, Scale, UserCheck, DatabaseZap, User, UserCircle
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export default function HomeBojong() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,7 +21,8 @@ export default function HomeBojong() {
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navRef = useRef<HTMLElement>(null);
-  
+  const [newsCount, setNewsCount] = useState<number>(5); // default/fallback to existing news count
+
   const router = useRouter();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -45,7 +47,7 @@ export default function HomeBojong() {
   // Hero Slides Data
   const heroSlides = [
     {
-      img: "/1.jpeg",
+      img: "/bg.webp",
       caption: "Pemandangan Wilayah Desa Bojong — Kecamatan Wonosegoro, Kabupaten Boyolali"
     },
     {
@@ -106,15 +108,25 @@ export default function HomeBojong() {
     // Refresh every 30 minutes
     const weatherInterval = setInterval(fetchWeather, 30 * 60 * 1000);
     
+    // Fetch actual news count from database
+    const fetchNewsCount = async () => {
+      try {
+        const { count, error } = await supabase
+          .from("news")
+          .select("*", { count: "exact", head: true });
+        if (!error && count !== null) {
+          setNewsCount(count);
+        }
+      } catch (err) {
+        console.error("Failed to fetch news count:", err);
+      }
+    };
+    fetchNewsCount();
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
-
-    // Auto-slide every 5 seconds
-    const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % 4);
-    }, 5000);
 
     // Click-outside handler to close dropdown
     const handleClickOutside = (e: MouseEvent) => {
@@ -128,7 +140,6 @@ export default function HomeBojong() {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
       clearInterval(weatherInterval);
-      clearInterval(slideInterval);
     };
   }, []);
 
@@ -234,94 +245,81 @@ export default function HomeBojong() {
 
 
       {/* ============================================================ */}
-      {/* 1. HERO SLIDER — Carousel 3-5 foto, caption bawah kiri       */}
+      {/* 1. HERO SECTION — Single background image & clean layout     */}
       {/* ============================================================ */}
-      <section id="home" className="position-relative vh-100 overflow-hidden">
-        {/* Slides */}
-        {heroSlides.map((slide, idx) => (
+      <section id="home" className="position-relative vh-100 overflow-hidden d-flex align-items-center">
+        {/* Single Background Image */}
+        <div className="position-absolute w-100 h-100 top-0 start-0" style={{ zIndex: 1 }}>
+          <Image 
+            src="/bg.webp"
+            alt="Desa Bojong" 
+            fill
+            className="object-fit-cover"
+            priority
+          />
+          {/* Subtle dark overlay for readability */}
           <div 
-            key={idx}
-            className="position-absolute w-100 h-100 top-0 start-0"
-            style={{ 
-              opacity: currentSlide === idx ? 1 : 0,
-              transition: 'opacity 0.8s ease-in-out',
-              zIndex: currentSlide === idx ? 1 : 0
-            }}
-          >
-            <Image 
-              src={slide.img}
-              alt={slide.caption} 
-              fill
-              className="object-fit-cover"
-              priority={idx === 0}
-            />
-            {/* Dark overlay */}
-            <div className="position-absolute w-100 h-100 top-0 start-0" 
-                 style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.4) 100%)' }}>
-            </div>
-          </div>
-        ))}
+            className="position-absolute w-100 h-100 top-0 start-0" 
+            style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%)' }}
+          ></div>
+        </div>
 
-        {/* Left Aligned Hero Text — Desa Bojong version */}
-        <div className="position-absolute start-0 top-0 w-100 h-100 d-flex align-items-center z-2" style={{ zIndex: 5 }}>
-          <div className="container-fluid px-4 px-md-5 mx-0 w-100">
+        {/* Hero Content — Desa Bojong */}
+        <div className="position-relative w-100 z-2" style={{ zIndex: 5 }}>
+          <div className="container-fluid px-4 px-md-5">
             <div className="row">
-              <div className="col-12 col-lg-9 text-start">
+              <div className="col-12 col-lg-8 col-xl-7 text-start">
                 
-                {/* Title */}
-                <h1 className="text-white text-uppercase mb-2" style={{ fontWeight: 900, fontSize: 'clamp(2.3rem, 5.5vw, 4.2rem)', lineHeight: '1.15', letterSpacing: '0.5px', textShadow: '2px 2px 15px rgba(0,0,0,0.85)' }}>
+                {/* Badge / Pill info */}
+                <div className="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" 
+                     style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                  <MapPin size={15} className="text-white opacity-85" />
+                  <span className="text-white small fw-normal" style={{ letterSpacing: '0.3px' }}>
+                    Desa Bojong — Kecamatan Wonosegoro, Kabupaten Boyolali
+                  </span>
+                </div>
+
+                {/* Main Heading */}
+                <h1 className="text-white mb-3" style={{ fontWeight: 700, fontSize: 'clamp(2.4rem, 5.5vw, 4.4rem)', lineHeight: '1.15', letterSpacing: '-0.5px' }}>
                   Selamat Datang <br />
-                  <span style={{ color: '', textShadow: '0 0 25px rgba(251,191,36,0.6)' }}>di Desa Bojong</span>
+                  di <span style={{ color: '#fbbf24' }}>Desa Bojong</span>
                 </h1>
                 
                 {/* Description */}
-                <p className="text-light mb-3 fs-5 text-justify opacity-95" style={{ maxWidth: '650px', textShadow: '1px 1px 5px rgba(0,0,0,0.9)', lineHeight: '1.5' }}>
+                <p className="text-white text-opacity-90 mb-4 fs-5" style={{ maxWidth: '620px', lineHeight: '1.6', fontWeight: 400 }}>
                   Desa mandiri, bersih, dan berdaya. Bersama membangun Desa Bojong yang sejahtera, hijau, dan berkelanjutan untuk generasi mendatang.
                 </p>
                 
                 {/* Action Buttons */}
-                <div className="d-flex gap-3 mb-4 flex-wrap">
-                  <a href="/profil-desa/sejarah" className="btn btn-warning rounded-pill px-4 py-2.5 fw-black text-dark shadow-lg hover-lift transition-all" style={{ backgroundColor: '#fbbf24', borderColor: '#fbbf24', fontWeight: 900 }}>
-                    Jelajahi Desa Bojong
+                <div className="d-flex gap-3 flex-wrap align-items-center">
+                  <a 
+                    href="/profil-desa/sejarah" 
+                    className="btn rounded-pill px-4 py-2.5 fw-medium text-white shadow-sm d-inline-flex align-items-center gap-2 text-decoration-none" 
+                    style={{ backgroundColor: '#2c5282', borderColor: '#2c5282', transition: 'all 0.3s ease' }}
+                  >
+                    <span>Jelajahi Desa Bojong</span>
+                    <ArrowRight size={18} />
                   </a>
-                  <a href="/berita" className="btn btn-outline-light rounded-pill px-4 py-2.5 fw-bold hover-lift transition-all" style={{ border: '2px solid white' }}>
-                    Baca Berita
+                  <a 
+                    href="/berita" 
+                    className="btn btn-outline-light rounded-pill px-4 py-2.5 fw-medium text-white d-inline-flex align-items-center gap-2 text-decoration-none" 
+                    style={{ border: '1.5px solid rgba(255,255,255,0.75)', backgroundColor: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(4px)' }}
+                  >
+                    <FileText size={18} />
+                    <span>Baca Berita</span>
                   </a>
-                </div>
-
-                {/* Current Slide Caption & Slide Indicators */}
-                <div className="mt-3 pt-3 border-top border-secondary border-opacity-35" style={{ maxWidth: '500px' }}>
-                  <p className="text-white mb-2 fs-6 opacity-75 fst-italic">
-                    Foto: {heroSlides[currentSlide].caption}
-                  </p>
-                  <div className="d-flex gap-2 align-items-center">
-                    {heroSlides.map((_, idx) => (
-                      <button 
-                        key={idx}
-                        onClick={() => setCurrentSlide(idx)}
-                        className="border-0 rounded-pill"
-                        style={{ 
-                          width: currentSlide === idx ? '32px' : '10px', 
-                          height: '10px',
-                          background: currentSlide === idx ? '#fbbf24' : 'rgba(255,255,255,0.4)',
-                          transition: 'all 0.3s ease',
-                          cursor: 'pointer'
-                        }}
-                        aria-label={`Slide ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
                 </div>
 
               </div>
             </div>
           </div>
         </div>
+
         {/* Bottom wave */}
         <div className="position-absolute bottom-0 w-100" style={{ zIndex: 5 }}>
            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120">
               <path fill="#ffffff" fillOpacity="1" d="M0,64L48,69.3C96,75,192,85,288,90.7C384,96,480,96,576,85.3C672,75,768,53,864,48C960,43,1056,53,1152,58.7C1248,64,1344,64,1392,64L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"></path>
-             </svg>
+           </svg>
         </div>
       </section>
 
@@ -416,65 +414,125 @@ export default function HomeBojong() {
       </section>
 
       {/* ============================================================ */}
-      {/* 4. "BOJONG DESAKU" — foto + angka penduduk                    */}
+      {/* 4. "BOJONG DESAKU" — foto + statistik kependudukan             */}
       {/* ============================================================ */}
-      <section className="position-relative py-0 overflow-hidden" style={{ minHeight: '500px' }}>
-        {/* Background image */}
+      <section className="position-relative py-5 py-lg-6 overflow-hidden" style={{ minHeight: '560px' }}>
+        {/* Background image — anak.webp dengan gradasi halus agar warna orange di kanan tetap cerah & hidup */}
         <div className="position-absolute w-100 h-100 top-0 start-0">
           <Image 
-            src="/mangrove_morosari.jpg" 
+            src="/anak.webp" 
             alt="Pemandangan Desa Bojong" 
             fill 
-            className="object-fit-cover"
+            className="object-fit-cover object-center"
+            priority
           />
-          <div className="position-absolute w-100 h-100 top-0 start-0" style={{ background: 'linear-gradient(to right, rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.7))' }}></div>
+          {/* Subtle directional vignette: gelap lembut di sisi teks kiri, sangat transparan di kanan agar warna orange anak.webp bersinar indah */}
+          <div 
+            className="position-absolute w-100 h-100 top-0 start-0" 
+            style={{ 
+              background: 'linear-gradient(90deg, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.65) 45%, rgba(15, 23, 42, 0.15) 80%, rgba(0, 0, 0, 0.05) 100%)' 
+            }}
+          ></div>
         </div>
 
-        <div className="container position-relative z-1 py-5">
-          <div className="row align-items-center min-vh-50">
-            <div className="col-lg-5 text-white mb-5 mb-lg-0 fade-in-left">
-              <h2 className="display-4 fw-bold mb-3" style={{ fontFamily: 'var(--font-cinzel)', color: '#fbbf24' }}>
-                Bojong Desaku
+        <div className="container position-relative z-1 py-4 py-md-5">
+          <div className="row align-items-center justify-content-between g-5">
+            {/* Sisi Teks Kiri — Font Inter lembut & elegan sama dengan Hero */}
+            <div className="col-lg-5 text-white fade-in-left">
+              {/* Badge */}
+              <div 
+                className="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3"
+                style={{ 
+                  background: 'rgba(255, 255, 255, 0.1)', 
+                  backdropFilter: 'blur(8px)', 
+                  border: '1px solid rgba(255, 255, 255, 0.18)' 
+                }}
+              >
+                <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fbbf24' }}></div>
+                <span className="text-white small fw-normal" style={{ letterSpacing: '0.5px' }}>
+                  Statistik & Wilayah
+                </span>
+              </div>
+
+              {/* Title serasi dengan Selamat Datang di Desa Bojong */}
+              <h2 className="text-white mb-3" style={{ fontWeight: 700, fontSize: 'clamp(2.2rem, 4.5vw, 3.4rem)', lineHeight: '1.15', letterSpacing: '-0.5px' }}>
+                Bojong <span style={{ color: '#fbbf24' }}>Desaku</span>
               </h2>
-              <p className="fs-5 opacity-75 mb-4 text-justify" style={{ maxWidth: '480px', lineHeight: 1.7 }}>
-                Desa yang kaya akan budaya, potensi alam, dan semangat gotong royong masyarakatnya. Berkomitmen menjadi desa mandiri dan sejahtera.
+
+              <p className="text-white text-opacity-85 mb-4 fs-5" style={{ maxWidth: '440px', lineHeight: '1.65', fontWeight: 400 }}>
+                Desa mandiri berlandaskan kearifan lokal, potensi sumber daya alam yang lestari, dan semangat kebersamaan masyarakat yang harmonis.
               </p>
-              <a href="/profil-desa/demografi" className="btn btn-outline-light rounded-pill px-4 py-2 fw-bold hover-lift">
-                Statistik Penduduk <ArrowRight size={18} className="ms-2" />
-              </a>
+
+              <div>
+                <a 
+                  href="/profil-desa/demografi" 
+                  className="btn rounded-pill px-4 py-2.5 fw-medium text-white d-inline-flex align-items-center gap-2 text-decoration-none shadow-sm"
+                  style={{ 
+                    backgroundColor: '#2c5282', 
+                    borderColor: '#2c5282',
+                    transition: 'all 0.3s ease' 
+                  }}
+                >
+                  <span>Data Demografi</span>
+                  <ArrowRight size={18} />
+                </a>
+              </div>
             </div>
 
-            <div className="col-lg-7">
-              <div className="row g-3 g-md-4 text-center text-white">
+            {/* Sisi Card Kanan — Gap lebih jauh, desain minimalis modern ultra-transparan agar latar oranye tetap terlihat utuh */}
+            <div className="col-lg-6 ps-lg-4">
+              <div className="row g-3 g-md-4">
                 {[
-                  { label: "Total Penduduk", val: "4.523", icon: Users, desc: "Jiwa", color: "#fbbf24", bg: "rgba(251, 191, 36, 0.2)" },
-                  { label: "Kepala Keluarga", val: "1.150", icon: Home, desc: "KK", color: "#10b981", bg: "rgba(16, 185, 129, 0.2)" },
-                  { label: "Laki-laki", val: "2.276", icon: User, desc: "Jiwa", color: "#60a5fa", bg: "rgba(96, 165, 250, 0.2)" },
-                  { label: "Perempuan", val: "2.247", icon: UserCircle, desc: "Jiwa", color: "#f43f5e", bg: "rgba(244, 63, 94, 0.2)" },
+                  { label: "Total Penduduk", val: "4.523", icon: Users, desc: "Jiwa", color: "#fbbf24" },
+                  { label: "Kepala Keluarga", val: "1.150", icon: Home, desc: "KK", color: "#38bdf8" },
+                  { label: "Laki-laki", val: "2.276", icon: User, desc: "Jiwa", color: "#60a5fa" },
+                  { label: "Perempuan", val: "2.247", icon: UserCircle, desc: "Jiwa", color: "#f472b6" },
                 ].map((stat, i) => (
                   <div className="col-6 scale-in" key={i}>
-                    <div className="p-4 rounded-4 h-100 hover-lift transition-all border group" 
-                         style={{ 
-                           background: 'rgba(255, 255, 255, 0.08)', 
-                           backdropFilter: 'blur(16px)',
-                           borderColor: 'rgba(255,255,255,0.15)' 
-                         }}>
-                      <div className="d-flex align-items-center justify-content-center mb-3">
-                         <div className="rounded-circle d-flex align-items-center justify-content-center transition-colors" 
-                              style={{ width: '50px', height: '50px', background: stat.bg, color: stat.color }}>
-                           <stat.icon size={24} className="group-hover-white-text transition-colors" />
-                         </div>
+                    <div 
+                      className="p-3 p-md-4 rounded-4 h-100 transition-all d-flex flex-column justify-content-between"
+                      style={{ 
+                        background: 'rgba(15, 23, 42, 0.35)', 
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                        border: '1px solid rgba(255, 255, 255, 0.16)',
+                        boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.25)',
+                        transition: 'transform 0.3s ease, border-color 0.3s ease, background 0.3s ease'
+                      }}
+                    >
+                      <div className="d-flex align-items-center justify-content-between mb-2">
+                        <span className="small text-white text-opacity-80 fw-medium" style={{ letterSpacing: '0.3px', fontSize: '0.8rem' }}>
+                          {stat.label}
+                        </span>
+                        <div 
+                          className="d-flex align-items-center justify-content-center rounded-circle"
+                          style={{ 
+                            width: '36px', 
+                            height: '36px', 
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            color: stat.color 
+                          }}
+                        >
+                          <stat.icon size={18} strokeWidth={2} />
+                        </div>
                       </div>
-                      <div className="display-5 fw-bold mb-0 text-white" style={{ fontFamily: 'var(--font-cinzel)', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
-                         {stat.val}
+
+                      <div>
+                        <div className="d-flex align-items-baseline gap-1.5 mt-1">
+                          <span className="display-6 fw-bold text-white mb-0" style={{ letterSpacing: '-0.5px' }}>
+                            {stat.val}
+                          </span>
+                          <span className="small fw-normal text-white text-opacity-70 ms-1" style={{ fontSize: '0.85rem' }}>
+                            {stat.desc}
+                          </span>
+                        </div>
                       </div>
-                      <div className="text-warning fw-bold small mb-2">{stat.desc}</div>
-                      <div className="small text-uppercase opacity-75 fw-bold" style={{ letterSpacing: '1px' }}>{stat.label}</div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -667,114 +725,27 @@ export default function HomeBojong() {
       </section>
 
       {/* ============================================================ */}
-      {/* 8. GALERI POTENSI DESA                                        */}
-      {/* ============================================================ */}
-      <section className="py-5 bg-white">
-        <div className="container">
-          <div className="d-flex justify-content-between align-items-end mb-4">
-             <div>
-               <h4 className="fw-bold mb-0" style={{ color: 'var(--primary)' }}>Potensi Desa Bojong</h4>
-               <p className="text-muted mb-0">Wisata, UMKM, dan kekayaan budaya Desa Bojong</p>
-             </div>
-             <a href="/potensi-desa/wisata" className="text-decoration-none fw-bold small d-none d-md-block" style={{ color: 'var(--accent)' }}>Lihat Semua &rarr;</a>
-          </div>
-
-          <div className="row g-4 mb-4">
-             {[
-               { title: "UMKM Gethuk — Pak Santo", img: "https://images.unsplash.com/photo-1625246333195-5819acf42d91?auto=format&fit=crop&w=400" },
-               { title: "Jamu Tradisional — Bu Turkidjo", img: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400" },
-               { title: "Wisata Alam Bojong", img: "/mangrove_morosari.jpg" },
-               { title: "Budaya & Tradisi Lokal", img: "/wisata_bahari.jpg" },
-             ].map((item, i) => (
-               <div className="col-md-3 col-6" key={i}>
-                 <div className="card border-0 shadow-sm h-100 overflow-hidden text-white group">
-                    <div className="position-relative" style={{ height: '250px' }}>
-                      <Image src={item.img} alt={item.title} fill className="object-fit-cover" />
-                      <div className="position-absolute bottom-0 start-0 w-100 p-3" style={{ background: 'linear-gradient(transparent, rgba(0,0,0,0.9))' }}>
-                         <h5 className="h6 fw-bold mb-0">{item.title}</h5>
-                      </div>
-                    </div>
-                 </div>
-               </div>
-             ))}
-          </div>
-
-          {/* Jam Pelayanan Kantor Desa */}
-          <div className="row g-4">
-             <div className="col-md-6">
-                <div className="card border-0 shadow h-100 overflow-hidden text-decoration-none" style={{ background: 'linear-gradient(135deg, #059669, #10b981)' }}>
-                  <div className="card-body p-5 d-flex flex-column align-items-center justify-content-center text-center position-relative text-white">
-                     {/* Decorative background circle */}
-                     <div className="position-absolute top-50 start-50 translate-middle rounded-circle opacity-10" style={{ width: '300px', height: '300px', background: 'radial-gradient(circle, #fff 0%, transparent 70%)' }}></div>
-                     
-                     <div className="mb-4 position-relative z-1 rounded-circle bg-white d-flex align-items-center justify-content-center" style={{ width: '120px', height: '120px' }}>
-                        <Clock size={56} className="text-success" />
-                     </div>
-                     
-                     <h3 className="fw-bold text-white mb-1 text-uppercase ls-1 position-relative z-1">Jam Pelayanan</h3>
-                     <p className="text-white text-opacity-75 mb-3 fw-bold small position-relative z-1">KANTOR DESA BOJONG</p>
-                     
-                     <div className="position-relative z-1 text-start w-100" style={{ maxWidth: '280px' }}>
-                        <div className="d-flex justify-content-between py-2 border-bottom border-white border-opacity-25">
-                           <span className="fw-bold small">Senin — Kamis</span>
-                           <span className="small">08:00 — 15:00</span>
-                        </div>
-                        <div className="d-flex justify-content-between py-2 border-bottom border-white border-opacity-25">
-                           <span className="fw-bold small">Jumat</span>
-                           <span className="small">08:00 — 11:00</span>
-                        </div>
-                        <div className="d-flex justify-content-between py-2">
-                           <span className="fw-bold small">Sabtu — Minggu</span>
-                           <span className="small text-warning">Libur</span>
-                        </div>
-                     </div>
-                  </div>
-                </div>
-             </div>
-             <div className="col-md-6">
-               {/* Pengaduan Warga CTA Card */}
-               <div className="card border-0 shadow h-100 overflow-hidden" style={{ background: 'linear-gradient(135deg, #dc2626, #ef4444)' }}>
-                 <div className="card-body p-5 d-flex flex-column align-items-center justify-content-center text-center position-relative text-white">
-                    <div className="position-absolute top-50 start-50 translate-middle rounded-circle opacity-10" style={{ width: '300px', height: '300px', background: 'radial-gradient(circle, #fff 0%, transparent 70%)' }}></div>
-                    
-                    <div className="mb-4 position-relative z-1 rounded-circle bg-white d-flex align-items-center justify-content-center" style={{ width: '120px', height: '120px' }}>
-                       <MessageSquare size={56} className="text-danger" />
-                    </div>
-                    
-                    <h3 className="fw-bold text-white mb-1 text-uppercase ls-1 position-relative z-1">Pengaduan Warga</h3>
-                    <p className="text-white text-opacity-75 mb-3 fw-bold small position-relative z-1">PUNYA KELUHAN ATAU MASALAH?</p>
-                    
-                    <div className="position-relative z-1 d-flex flex-column gap-2">
-                       <a href="/layanan-warga/pengaduan" className="btn btn-light rounded-pill px-4 fw-bold text-danger shadow-sm">
-                         Buat Pengaduan Sekarang
-                       </a>
-                       <a href="/layanan-warga/bantuan-faq" className="btn btn-outline-light rounded-pill px-4 fw-bold small">
-                         Bantuan & FAQ
-                       </a>
-                    </div>
-                 </div>
-               </div>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* 9. BAND STATISTIK + DUKUNGAN/MITRA (gabungan)                 */}
+      {/* 9. BAND STATISTIK DATA DESA                                  */}
       {/* ============================================================ */}
       <section className="py-5 text-white" style={{ background: 'linear-gradient(to right, #0f172a, #1e293b)' }}>
         <div className="container">
            {/* Stats Row */}
            <div className="row g-5 text-center">
               {[
-                { label: "Berita Desa", val: "48" },
-                { label: "UMKM Terdaftar", val: "12" },
-                { label: "Pengaduan Selesai", val: "35" },
-                { label: "Kegiatan KKN", val: "11" }
+                { label: "Berita Desa", val: `${newsCount}`, href: "/berita" },
+                { label: "UMKM Terdaftar", val: "5", href: "/potensi-desa/umkm" },
+                { label: "Kategori Pengaduan", val: "7", href: "/layanan-warga/pengaduan" },
+                { label: "Kegiatan KKN", val: "11", href: "/berita" }
               ].map((stat, i) => (
                 <div className="col-6 col-md-3 position-relative" key={i}>
-                   <div className="display-4 fw-bold mb-2 text-warning">{stat.val}</div>
-                   <div className="text-uppercase tracking-wider small opacity-75">{stat.label}</div>
+                   <a href={stat.href} className="text-decoration-none text-white d-block group">
+                     <div className="display-4 fw-bold mb-2 text-warning transition-transform group-hover-scale" style={{ letterSpacing: '-1px' }}>
+                       {stat.val}
+                     </div>
+                     <div className="text-uppercase tracking-wider small opacity-75 fw-medium">
+                       {stat.label}
+                     </div>
+                   </a>
                 </div>
               ))}
            </div>

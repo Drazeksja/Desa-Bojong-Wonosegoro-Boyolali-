@@ -20,24 +20,34 @@ type Block =
 interface ProcedureItem {
   number: number;
   title: string;
+
+  // SRC GAMBAR MASING-MASING NOMOR
+  src: string;
+
   blocks: Block[];
 }
 
 /* ------------------------------------------------------------------ */
-/*  Data — ditranskrip lengkap dari prosedur.md, tanpa pengurangan    */
+/*  Data — Prosedur                                                   */
 /* ------------------------------------------------------------------ */
 
 const PROCEDURES: ProcedureItem[] = [
   {
     number: 1,
     title: "Kartu Keluarga",
+    src: "/kk.jpeg",
     blocks: [
       {
         type: "law",
         ref: "Peraturan Menteri Dalam Negeri Nomor 108 Tahun 2019 Pasal 1 Ayat (14)",
         text: 'Kartu Tanda Penduduk Elektronik yang selanjutnya disingkat KTP-el adalah Kartu Tanda Penduduk yang dilengkapi dengan cip yang merupakan identitas resmi penduduk sebagai bukti diri yang diterbitkan oleh "Disdukcapil" (Dinas Kependudukan dan Pencatatan Sipil) Kabupaten/Kota.',
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -49,16 +59,19 @@ const PROCEDURES: ProcedureItem[] = [
           "SPTJM Kebenaran Perkawinan (apabila tidak bisa menunjukan dokumen Akta Perkawinan)",
         ],
       },
+
       {
         type: "section",
         code: "B",
-        title: "Perubahan Kartu Keluarga karena Penambahan Anggota Keluarga bagi Penduduk yang Melahirkan",
+        title:
+          "Perubahan Kartu Keluarga karena Penambahan Anggota Keluarga bagi Penduduk yang Melahirkan",
         items: [
           "Mengisi Form F1.01 dan F1.02",
           "Kartu Keluarga Asli",
           "Surat Keterangan Lahir dari Rumah Sakit/Puskesmas/Bidan",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -70,6 +83,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Data Pendukung",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -80,6 +94,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy Kutipan Kematian/Foto Copy Surat Pindah/Data Dukung Lainnya",
         ],
       },
+
       {
         type: "section",
         code: "E",
@@ -95,16 +110,23 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 2,
     title: "Kartu Tanda Penduduk",
+    src: "/ktp.jpeg",
     blocks: [
       {
         type: "law",
         ref: "Peraturan Menteri Dalam Negeri Nomor 108 Tahun 2019 Pasal 1 Ayat (12)",
         text: "Kartu Keluarga yang selanjutnya disingkat Kartu Keluarga adalah kartu identitas keluarga yang memuat data tentang nama, susunan dan hubungan dalam keluarga, serta identitas anggota keluarga.",
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -116,6 +138,7 @@ const PROCEDURES: ProcedureItem[] = [
           "SKDLN yang Diterbitkan oleh Instansi Pelaksana yang Datang dari LN Karena Pindah",
         ],
       },
+
       {
         type: "section",
         code: "B",
@@ -129,6 +152,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat Keterangan Catatan Kepolisian",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -143,6 +167,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Kartu Izin Tinggal Tetap",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -154,6 +179,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy Kartu Keluarga",
         ],
       },
+
       {
         type: "section",
         code: "E",
@@ -166,31 +192,40 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 3,
     title: "Mutasi Penduduk Kabupaten Boyolali",
+    src: "/images/prosedur/03.webp",
     blocks: [
       {
         type: "law",
         ref: "Peraturan Menteri Dalam Negeri Nomor 108 Tahun 2019 Pasal 1 Ayat (17)",
         text: '"Surat Keterangan Pindah yang selanjutnya disingkat SKP adalah surat keterangan yang wajib dimiliki oleh penduduk yang bermaksud pindah ke kabupaten/kota/provinsi lain, yang diterbitkan oleh Disdukcapil Kabupaten/Kota atau unit pelaksana Dinas Kependudukan dan Pencatatan Sipil dari daerah asal."',
       },
+
       {
         type: "heading",
         text: "I. Mutasi Kedatangan ke Kabupaten Boyolali — Persyaratan Penerbitan",
       },
+
       {
         type: "section",
         code: "A",
         title: "Dalam Kelurahan",
         items: ["Kartu Keluarga dan KTP-el"],
       },
+
       {
         type: "section",
         code: "B",
         title: "Antar Kelurahan dalam Satu Kecamatan",
-        items: ["Surat Keterangan Pindah dari Kelurahan", "Kartu Keluarga dan KTP-el"],
+        items: [
+          "Surat Keterangan Pindah dari Kelurahan",
+          "Kartu Keluarga dan KTP-el",
+        ],
       },
+
       {
         type: "section",
         code: "C",
@@ -201,6 +236,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Kartu Keluarga dan KTP-el",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -210,6 +246,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat Keterangan Pindah dari Daerah Asal",
         ],
       },
+
       {
         type: "note",
         title: "NB",
@@ -220,7 +257,12 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy Surat Cerai / Akta Cerai",
         ],
       },
-      { type: "heading", text: "II. Mutasi Keluar Kabupaten Boyolali — Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "II. Mutasi Keluar Kabupaten Boyolali — Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -235,6 +277,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Bukti Dukung Lainnya yang Dibutuhkan",
         ],
       },
+
       {
         type: "section",
         code: "B",
@@ -247,6 +290,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Akta Kelahiran (Apabila belum/tidak memiliki, maka melampirkan SPTJM Kelahiran)",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -259,6 +303,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Akta Kelahiran (Apabila belum/tidak memiliki, maka melampirkan SPTJM Kelahiran)",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -272,6 +317,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy Surat Cerai/Akta Cerai",
         ],
       },
+
       {
         type: "section",
         code: "E",
@@ -284,10 +330,12 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat Keterangan Catatan Kepolisian",
         ],
       },
+
       {
         type: "section",
         code: "F",
-        title: "Pindah Datang Orang Asing yang Mempunyai Izin Tempat Tinggal Sementara",
+        title:
+          "Pindah Datang Orang Asing yang Mempunyai Izin Tempat Tinggal Sementara",
         items: [
           "Mengisi Formulir F1.03 (Formulir Pendaftaran Perpindahan Penduduk)",
           "Foto Copy Paspor",
@@ -295,6 +343,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat Keterangan Catatan Kepolisian",
         ],
       },
+
       {
         type: "section",
         code: "G",
@@ -307,16 +356,23 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 4,
     title: "Kartu Identitas Anak (KIA)",
+    src: "/kia.jpg",
     blocks: [
       {
         type: "law",
         ref: "Peraturan Menteri Dalam Negeri Nomor 02 Tahun 2016 Pasal 1 Ayat (7) Tentang Kartu Identitas Anak (KIA)",
         text: "Kartu Identitas Anak yang selanjutnya disingkat menjadi KIA adalah identitas resmi anak sebagai bukti diri anak yang berusia kurang dari 17 tahun, dan belum menikah, yang diterbitkan oleh Dinas Dukcapil Kabupaten/Kota.",
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -329,6 +385,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Berwarna ukuran 4x6 sebanyak 2 lembar (bagi anak yang telah berusia 5 tahun s/d 17 tahun kurang 1 hari)",
         ],
       },
+
       {
         type: "section",
         code: "B",
@@ -342,6 +399,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Berwarna ukuran 4x6 sebanyak 2 lembar (bagi anak yang telah berusia 5 th s/d 17 th kurang dari 1 hari)",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -355,6 +413,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Berwarna ukuran 4x6 sebanyak 2 lembar (bagi anak yang telah berusia > 5 th s/d 17 th kurang 1 hari)",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -368,6 +427,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Berwarna ukuran 4x6 sebanyak 2 lembar (bagi anak yang telah berusia 5 th s/d 17 tahun kurang 1 hari)",
         ],
       },
+
       {
         type: "section",
         code: "E",
@@ -382,6 +442,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Berwarna ukuran 4x6 sebanyak 2 lembar (bagi anak yang telah berusia > 5 th s/d 17 th kurang 1 hari)",
         ],
       },
+
       {
         type: "section",
         code: "F",
@@ -397,16 +458,23 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 5,
     title: "Akta Kelahiran",
+    src: "/akl.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang Nomor 24 Tahun 2013",
         text: "Setiap kelahiran wajib dilaporkan oleh penduduk kepada Dispendukcapil di tempat penduduk berdomisili paling lambat 60 hari sejak kelahirannya.",
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -427,6 +495,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat pernyataan bagi anak yang jarak kelahirannya lebih dari 10 tahun dari anak sebelumnya atau dari usia perkawinan",
         ],
       },
+
       {
         type: "note",
         title: "Informasi Penting",
@@ -437,6 +506,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Pencatatan kelahiran WNI bagi anak yang tidak diketahui asal usulnya atau keberadaan orang tuanya selain yang dimaksud di atas harus memenuhi persyaratan Surat Pernyataan Tanggung Jawab Mutlak Kebenaran Data Kelahiran dengan 2 (dua) orang saksi",
         ],
       },
+
       {
         type: "note",
         title: "Permendagri RI No. 73 Tahun 2022 — Ketentuan Pencatatan Nama",
@@ -449,6 +519,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Tidak mencantumkan gelar pendidikan dan keagamaan",
         ],
       },
+
       {
         type: "section",
         code: "B",
@@ -461,6 +532,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Dokumen Perjalanan Republik Indonesia dan/atau Dokumen Perjalanan orang tua atau Surat Keterangan Pindah Luar Negeri",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -472,6 +544,7 @@ const PROCEDURES: ProcedureItem[] = [
           "KTP-el atau Izin Tinggal Tetap atau Kartu Izin Tinggal Terbatas atau Visa Kunjungan",
         ],
       },
+
       {
         type: "note",
         title: "Pencatatan Lahir Mati",
@@ -483,21 +556,29 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 6,
     title: "Akta Perkawinan",
+    src: "/apw.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang No. 23 Tahun 2006 Pasal 34 Ayat (1) dan (2)",
         text: '"Perkawinan yang sah berdasarkan ketentuan Peraturan Perundang-undangan wajib dilaporkan oleh Penduduk kepada Instansi Pelaksana di tempat terjadinya perkawinan paling lambat 60 (enam puluh) hari sejak tanggal perkawinan."',
       },
+
       {
         type: "law",
         ref: "Undang-Undang No. 24 Tahun 2013 Pasal 102 (b)",
         text: 'Semua kalimat "wajib dilaporkan oleh Penduduk kepada Instansi Pelaksana di tempat terjadinya peristiwa" harus dimaknai "wajib dilaporkan oleh Penduduk di Instansi Pelaksana tempat Penduduk berdomisili."',
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -519,6 +600,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Mengisi Form (F.1 s/d F.7) atau formulir model N",
         ],
       },
+
       {
         type: "note",
         title: "Catatan Penting",
@@ -528,10 +610,12 @@ const PROCEDURES: ProcedureItem[] = [
           "Perkawinan harus diijinkan apabila pria dan wanita sudah mencapai umur 19 tahun. Penyimpangan terhadap ketentuan umur tersebut, orang tua pihak pria dan/atau wanita dapat meminta dispensasi kepada pengadilan dengan alasan sangat mendesak disertai bukti-bukti yang cukup (UU No. 16 Th. 2019 tentang Perubahan atas UU No. 1 Th. 1974)",
         ],
       },
+
       {
         type: "section",
         code: "B",
-        title: "Pencatatan Perkawinan WNI dengan WNA dan/atau WNA dengan WNA di Wilayah NKRI",
+        title:
+          "Pencatatan Perkawinan WNI dengan WNA dan/atau WNA dengan WNA di Wilayah NKRI",
         items: [
           "Mengisi formulir pelaporan pencatatan perkawinan. Semua dokumen persyaratan yang menggunakan bahasa asing wajib diterjemahkan ke bahasa Indonesia oleh penerjemah tersumpah",
           "Surat keterangan telah terjadinya perkawinan dari pemuka Agama atau penghayat kepercayaan",
@@ -550,6 +634,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Mengisi Form (F.1 s/d F.7) dan formulir model N",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -565,6 +650,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy Kutipan Akta Cerai atau Kutipan Akta Kematian apabila calon pengantin berstatus duda/janda",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -578,21 +664,29 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 7,
     title: "Akta Kematian",
+    src: "/ak.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang Nomor 24 Tahun 2013 Pasal 44 Ayat (1)",
         text: '"Setiap kematian wajib dilaporkan oleh ketua rukun tetangga atau nama lainnya di domisili Penduduk kepada Instansi Pelaksana setempat paling lambat 30 (tiga puluh) hari sejak tanggal kematian."',
       },
+
       {
         type: "law",
         ref: "Undang-Undang Nomor 24 Tahun 2013 Pasal 44 Ayat (2)",
         text: "Pelapor kematian oleh rukun tetangga atau nama lain kepada Instansi Pelaksana dilaksanakan secara berjenjang kepada rukun warga atau nama lain, kelurahan/desa atau nama lain, dan kecamatan atau nama lain.",
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -605,6 +699,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy KTP-el Pelapor (RT atau ahli waris)",
         ],
       },
+
       {
         type: "section",
         code: "B",
@@ -619,6 +714,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy KITAS/KITAP",
         ],
       },
+
       {
         type: "section",
         code: "C",
@@ -630,6 +726,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat kuasa bermaterai khusus bagi yang dikuasakan",
         ],
       },
+
       {
         type: "section",
         code: "D",
@@ -646,21 +743,29 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 8,
     title: "Akta Perceraian",
+    src: "/ap.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang Nomor 23 Tahun 2006 Pasal 40 Ayat (1)",
         text: "Perceraian wajib dilaporkan oleh yang bersangkutan kepada instansi pelaksana paling lambat 60 (enam puluh) hari sejak putusan pengadilan tentang perceraian yang telah memperoleh kekuatan hukum tetap.",
       },
+
       {
         type: "law",
         ref: "Undang-Undang Nomor 24 Tahun 2013 Pasal 102 (b)",
         text: '"Semua kalimat \'wajib dilaporkan oleh Penduduk kepada Instansi Pelaksana di tempat terjadinya peristiwa\' harus dimaknai \'wajib dilaporkan oleh Penduduk di Instansi Pelaksana tempat Penduduk berdomisili\'."',
       },
-      { type: "heading", text: "Persyaratan Penerbitan" },
+
+      {
+        type: "heading",
+        text: "Persyaratan Penerbitan",
+      },
+
       {
         type: "section",
         code: "A",
@@ -672,6 +777,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Foto Copy KTP-el dan Kartu Keluarga para pihak",
         ],
       },
+
       {
         type: "section",
         code: "B",
@@ -685,20 +791,24 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 9,
     title: "Perubahan Nama",
+    src: "/gn.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang Nomor 23 Tahun 2006 Pasal 52 Ayat (1)",
         text: '"Pencatatan perubahan nama dilaksanakan berdasarkan penetapan Pengadilan Negeri tempat pemohon."',
       },
+
       {
         type: "law",
         ref: "Undang-Undang Nomor 23 Tahun 2006 Pasal 52 Ayat (2)",
         text: '"Pencatatan perubahan nama sebagaimana dimaksud pada ayat (1) wajib dilaporkan oleh Penduduk kepada Instansi Pelaksana yang menerbitkan Akta Pencatatan Sipil paling lambat 30 (tiga puluh) hari sejak diterimanya salinan penetapan Pengadilan Negeri oleh Penduduk."',
       },
+
       {
         type: "list",
         numbered: true,
@@ -712,6 +822,7 @@ const PROCEDURES: ProcedureItem[] = [
           "Surat kuasa bermaterai cukup bagi yang dikuasakan",
         ],
       },
+
       {
         type: "note",
         title: "Tambahan",
@@ -723,20 +834,24 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 10,
     title: "Pengakuan Anak",
+    src: "/paaa.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang No. 24 Tahun 2013 Pasal 49 Ayat (2)",
         text: '"Pengakuan anak hanya berlaku bagi anak yang orang tuanya telah melaksanakan perkawinan sah menurut hukum agama, tetapi belum sah menurut hukum negara."',
       },
+
       {
         type: "law",
         ref: "Undang-Undang No. 24 Tahun 2013 Pasal 102 Huruf (b)",
         text: '"Semua kalimat \'wajib dilaporkan oleh Penduduk kepada Instansi Pelaksana di tempat terjadinya peristiwa\' harus dimaknai \'wajib dilaporkan oleh Penduduk di Instansi Pelaksana tempat Penduduk berdomisili\'."',
       },
+
       {
         type: "list",
         items: [
@@ -752,20 +867,24 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 11,
     title: "Pengesahan Anak",
+    src: "/paa.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang Nomor 24 Tahun 2013 Pasal 50 Ayat (2)",
         text: '"Pengesahan anak hanya berlaku bagi anak yang orang tuanya telah melaksanakan perkawinan sah menurut hukum agama dan hukum negara."',
       },
+
       {
         type: "law",
         ref: "Undang-Undang Nomor 24 Tahun 2013 Pasal 102 (b)",
         text: '"Semua kalimat \'wajib dilaporkan oleh Penduduk kepada Instansi Pelaksana di tempat terjadinya peristiwa\' harus dimaknai \'wajib dilaporkan oleh Penduduk di Instansi Pelaksana tempat penduduk berdomisili\'."',
       },
+
       {
         type: "list",
         items: [
@@ -786,15 +905,18 @@ const PROCEDURES: ProcedureItem[] = [
       },
     ],
   },
+
   {
     number: 12,
     title: "Pengangkatan Anak",
+    src: "/pa.jpg",
     blocks: [
       {
         type: "law",
         ref: "Undang-Undang Nomor 23 Tahun 2006 Pasal 47 Ayat (1)",
         text: '"Pencatatan Pengangkatan Anak dilaksanakan berdasarkan penetapan Pengadilan di tempat tinggal pemohon."',
       },
+
       {
         type: "list",
         items: [
@@ -812,19 +934,27 @@ const PROCEDURES: ProcedureItem[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Renderers                                                          */
+/*  Renderers                                                         */
 /* ------------------------------------------------------------------ */
 
-function ItemList({ items, numbered }: { items: ListItem[]; numbered?: boolean }) {
+function ItemList({
+  items,
+  numbered,
+}: {
+  items: ListItem[];
+  numbered?: boolean;
+}) {
   return (
     <ol className={numbered ? "arsip-list-numbered" : "arsip-list"}>
       {items.map((it, i) => {
         const isObj = typeof it !== "string";
-        const text = isObj ? (it as { text: string }).text : (it as string);
-        const sub = isObj ? (it as { sub: string[] }).sub : null;
+        const text = isObj ? it.text : it;
+        const sub = isObj ? it.sub : null;
+
         return (
           <li key={i}>
             <span>{text}</span>
+
             {sub && (
               <ol className="arsip-list arsip-list-nested">
                 {sub.map((s, j) => (
@@ -841,6 +971,10 @@ function ItemList({ items, numbered }: { items: ListItem[]; numbered?: boolean }
   );
 }
 
+/* ------------------------------------------------------------------ */
+/*  Block Renderer                                                    */
+/* ------------------------------------------------------------------ */
+
 function BlockRenderer({ block }: { block: Block }) {
   if (block.type === "law") {
     return (
@@ -850,9 +984,11 @@ function BlockRenderer({ block }: { block: Block }) {
       </div>
     );
   }
+
   if (block.type === "heading") {
     return <h4 className="arsip-subheading">{block.text}</h4>;
   }
+
   if (block.type === "note") {
     return (
       <div className="arsip-note">
@@ -861,6 +997,7 @@ function BlockRenderer({ block }: { block: Block }) {
       </div>
     );
   }
+
   if (block.type === "list") {
     return (
       <div className="arsip-plain-section">
@@ -868,58 +1005,62 @@ function BlockRenderer({ block }: { block: Block }) {
       </div>
     );
   }
-  // section
+
   return (
     <div className="arsip-section">
       <p className="arsip-section-title">
-        <span className="arsip-section-code">{block.code}.</span> {block.title}
+        <span className="arsip-section-code">{block.code}.</span>{" "}
+        {block.title}
       </p>
+
       <ItemList items={block.items} />
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Foto dokumentasi per nomor                                         */
+/*  Foto dokumentasi per nomor                                       */
 /* ------------------------------------------------------------------ */
 
-/**
- * Taruh foto kamu (format .webp) di /public/images/prosedur/ dengan nama
- * 01.webp, 02.webp, ... 12.webp — sesuai nomor urut prosedur di bawah.
- * Kalau file belum ada, kartu akan otomatis menampilkan placeholder rapi
- * (tidak akan error / merusak layout).
- */
-function ProcedurePhoto({ number, title }: { number: number; title: string }) {
+function ProcedurePhoto({
+  title,
+  src,
+}: {
+  number: number;
+  title: string;
+  src: string;
+}) {
   const [failed, setFailed] = useState(false);
-  const src = `/images/prosedur/${String(number).padStart(2, "0")}.webp`;
-  const tilt = number % 2 === 0 ? "-1.4deg" : "1.4deg";
 
   return (
-    <figure className="arsip-photo-card" style={{ transform: `rotate(${tilt})` }}>
+    <figure className="arsip-photo-card">
       <div className="arsip-photo-frame">
         {!failed ? (
           <Image
             src={src}
             alt={`Dokumentasi ${title}`}
             fill
-            sizes="220px"
+            sizes="(max-width: 768px) 100vw, 420px"
             style={{ objectFit: "cover" }}
             onError={() => setFailed(true)}
           />
         ) : (
           <div className="arsip-photo-placeholder">
-            <ImageOff size={22} strokeWidth={1.5} />
-            <span>Foto belum tersedia</span>
+            <ImageOff size={24} strokeWidth={1.5} />
+            <span>Dokumentasi Pelayanan — {title}</span>
           </div>
         )}
       </div>
-      <figcaption className="arsip-photo-caption">Dokumentasi — {title}</figcaption>
+
+      <figcaption className="arsip-photo-caption">
+        Panduan Pelayanan — {title}
+      </figcaption>
     </figure>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Accordion item                                                     */
+/*  Accordion Row                                                     */
 /* ------------------------------------------------------------------ */
 
 function ProcedureRow({
@@ -935,26 +1076,62 @@ function ProcedureRow({
   const restBlocks = item.blocks.filter((b) => b.type !== "law");
 
   return (
-    <div className="arsip-proc-row">
-      <button className="arsip-proc-trigger" onClick={onToggle} aria-expanded={open}>
-        <span className="arsip-proc-number">{String(item.number).padStart(2, "0")}</span>
-        <span className="arsip-proc-title">{item.title}</span>
-        <ChevronDown
-          size={20}
-          className="arsip-proc-chevron"
-          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-        />
+    <div className={`arsip-proc-row ${open ? "active" : ""}`}>
+      <button
+        type="button"
+        className="arsip-proc-trigger"
+        onClick={onToggle}
+        aria-expanded={open}
+      >
+        <div className="d-flex align-items-center gap-3 flex-grow-1">
+          <span className="arsip-proc-number">
+            {String(item.number).padStart(2, "0")}
+          </span>
+
+          <span className="arsip-proc-title">{item.title}</span>
+        </div>
+
+        <div className="arsip-proc-chevron-wrapper">
+          <ChevronDown
+            size={20}
+            className="arsip-proc-chevron"
+            style={{
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          />
+        </div>
       </button>
+
       {open && (
         <div className="arsip-proc-body">
+          {/* ======================================================= */}
+          {/* FOTO SESUAI NOMOR                                      */}
+          {/* ======================================================= */}
+
+          <div className="mb-4">
+            <ProcedurePhoto
+              number={item.number}
+              title={item.title}
+              src={item.src}
+            />
+          </div>
+
+          {/* ======================================================= */}
+          {/* DASAR HUKUM                                            */}
+          {/* ======================================================= */}
+
           <div className="arsip-proc-top">
             <div className="arsip-proc-top-text">
               {lawBlocks.map((b, i) => (
                 <BlockRenderer key={i} block={b} />
               ))}
             </div>
-            <ProcedurePhoto number={item.number} title={item.title} />
           </div>
+
+          {/* ======================================================= */}
+          {/* ISI PROSEDUR                                            */}
+          {/* ======================================================= */}
+
           <div className="arsip-proc-rest">
             {restBlocks.map((b, i) => (
               <BlockRenderer key={i} block={b} />
@@ -967,141 +1144,216 @@ function ProcedureRow({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Page                                                                */
+/*  Page                                                              */
 /* ------------------------------------------------------------------ */
 
 export default function ProsedurHukum() {
-  const [openIds, setOpenIds] = useState<Set<number>>(new Set());
+  const [activeNumber, setActiveNumber] = useState<number | null>(1);
 
   const toggle = (n: number) => {
-    setOpenIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(n)) next.delete(n);
-      else next.add(n);
-      return next;
-    });
+    setActiveNumber((prev) => (prev === n ? null : n));
   };
 
   return (
     <main className="pb-5 bg-white min-vh-100 pt-5">
-      <div className="container mt-5 pt-4" style={{ maxWidth: "880px" }}>
+      <div
+        className="container mt-5 pt-4"
+        style={{ maxWidth: "920px" }}
+      >
         {/* Kop halaman */}
+
         <div className="mb-5 text-center border-bottom border-secondary border-opacity-25 pb-4">
-          <p className="arsip-letterhead">PEMERINTAH DESA BOJONG</p>
-          <h6
-            className="fw-bold text-uppercase"
-            style={{ color: "var(--accent)", letterSpacing: "2px" }}
+          <div
+            className="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-2"
+            style={{
+              background: "rgba(217, 119, 6, 0.08)",
+              border: "1px solid rgba(217, 119, 6, 0.2)",
+            }}
           >
-            LAYANAN WARGA
-          </h6>
+            <span
+              className="fw-semibold text-uppercase"
+              style={{
+                color: "var(--accent)",
+                letterSpacing: "2px",
+                fontSize: "0.72rem",
+              }}
+            >
+              Pemerintah Desa Bojong · Layanan Warga
+            </span>
+          </div>
+
           <h1
             className="display-4 fw-bold mt-2"
-            style={{ color: "var(--primary-dark)", fontFamily: "serif" }}
+            style={{
+              color: "var(--primary-dark)",
+              fontFamily: "serif",
+            }}
           >
-            Prosedur Hukum
+            Surat Keterangan &amp; Prosedur Dokumen
           </h1>
-          <p className="text-muted mx-auto mt-3" style={{ maxWidth: "620px" }}>
-            Dasar hukum, syarat, dan tata cara pengurusan dokumen kependudukan dan pencatatan
-            sipil di Desa Bojong. Pilih salah satu topik di bawah untuk melihat rincian lengkap.
+
+          <p
+            className="text-muted mx-auto mt-3"
+            style={{
+              maxWidth: "660px",
+              lineHeight: 1.7,
+            }}
+          >
+            Dasar hukum, persyaratan administrasi, dan tata cara pengurusan
+            dokumen kependudukan serta pencatatan sipil di Desa Bojong. Klik
+            salah satu topik di bawah untuk membuka rincian lengkapnya.
           </p>
         </div>
 
-        {/* Daftar prosedur — dropdown list */}
+        {/* Daftar prosedur */}
+
         <div className="arsip-proc-list">
           {PROCEDURES.map((item) => (
             <ProcedureRow
               key={item.number}
               item={item}
-              open={openIds.has(item.number)}
+              open={activeNumber === item.number}
               onToggle={() => toggle(item.number)}
             />
           ))}
         </div>
       </div>
 
-      {/* Styling — formal, kaku, sudut tegas, tanpa shadow/gradient */}
+      {/* ============================================================ */}
+      {/* Styling                                                       */}
+      {/* ============================================================ */}
+
       <style>{`
-        .arsip-letterhead {
-          font-size: 0.7rem;
-          letter-spacing: 3px;
-          color: #6b6355;
-          text-transform: uppercase;
-          margin-bottom: 0.75rem;
-        }
         .arsip-proc-list {
-          border-top: 1px solid #c7c1b4;
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
         }
+
         .arsip-proc-row {
-          border-bottom: 1px solid #c7c1b4;
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          border-radius: 14px;
+          overflow: hidden;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        .arsip-proc-row:hover {
+          border-color: #cbd5e1;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .arsip-proc-row.active {
+          border-color: #2c5282;
+          box-shadow: 0 10px 25px rgba(44, 82, 130, 0.08);
+        }
+
         .arsip-proc-trigger {
           width: 100%;
           display: flex;
           align-items: center;
+          justify-content: space-between;
           gap: 1rem;
-          background: transparent;
+          background: #ffffff;
           border: none;
-          padding: 1.1rem 0.25rem;
+          padding: 1.15rem 1.4rem;
           text-align: left;
           cursor: pointer;
+          transition: background-color 0.25s ease;
         }
+
         .arsip-proc-trigger:hover {
-          background: #f7f5f0;
+          background: #f8fafc;
         }
+
+        .arsip-proc-row.active .arsip-proc-trigger {
+          background: #f1f5f9;
+          border-bottom: 1px solid #e2e8f0;
+        }
+
         .arsip-proc-number {
           font-family: var(--font-inter), sans-serif;
           font-weight: 700;
           font-size: 0.85rem;
-          color: var(--primary-dark);
-          border: 1px solid var(--primary-dark);
-          width: 34px;
-          height: 34px;
-          min-width: 34px;
+          background-color: #2c5282;
+          color: #ffffff;
+          width: 32px;
+          height: 32px;
+          min-width: 32px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: 0;
+          border-radius: 8px;
         }
+
         .arsip-proc-title {
-          flex: 1;
           font-family: serif;
           font-weight: 700;
-          font-size: 1.15rem;
-          color: var(--text-main, #1e293b);
+          font-size: 1.12rem;
+          color: #0f172a;
+          letter-spacing: -0.2px;
         }
-        .arsip-proc-chevron {
-          color: var(--accent);
-          transition: transform 0.15s ease;
+
+        .arsip-proc-chevron-wrapper {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.03);
           flex-shrink: 0;
         }
+
+        .arsip-proc-chevron {
+          color: #2c5282;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         .arsip-proc-body {
-          padding: 0 0.25rem 2rem 3.25rem;
+          padding: 1.75rem 1.6rem 2rem;
+          background: #ffffff;
+          animation: procFadeIn 0.35s ease forwards;
         }
-        .arsip-proc-top {
-          display: flex;
-          gap: 1.75rem;
-          align-items: flex-start;
-          flex-wrap: wrap-reverse;
+
+        @keyframes procFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-6px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
-        .arsip-proc-top-text {
-          flex: 1 1 260px;
-          min-width: 240px;
-        }
-        .arsip-proc-rest {
-          margin-top: 0.5rem;
-        }
+
+        /* ========================================================== */
+        /* FOTO LANDSCAPE                                            */
+        /* ========================================================== */
+
         .arsip-photo-card {
-          flex: 0 0 200px;
-          margin: 0.25rem 0.5rem 0.5rem;
+          width: 100%;
+          margin: 0 0 1.5rem 0;
         }
+
         .arsip-photo-frame {
           position: relative;
-          width: 200px;
-          height: 240px;
-          background: #f1efe9;
-          border: 1px solid #d8d2c2;
-          box-shadow: 0 8px 18px rgba(22, 35, 63, 0.12);
+          width: 100%;
+          height: 220px;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #f1f5f9;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
+
+        @media (min-width: 768px) {
+          .arsip-photo-frame {
+            height: 280px;
+          }
+        }
+
         .arsip-photo-placeholder {
           width: 100%;
           height: 100%;
@@ -1109,120 +1361,179 @@ export default function ProsedurHukum() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 0.4rem;
-          color: #a39d8c;
-          font-size: 0.75rem;
+          gap: 0.5rem;
+          color: #64748b;
+          font-size: 0.85rem;
+          font-weight: 500;
           text-align: center;
-          padding: 0 1rem;
+          padding: 1rem;
+          background: linear-gradient(
+            135deg,
+            #f8fafc,
+            #edf2f7
+          );
         }
+
         .arsip-photo-caption {
-          font-family: serif;
-          font-style: italic;
+          font-family: var(--font-inter), sans-serif;
           font-size: 0.78rem;
-          color: #6b6355;
+          color: #64748b;
           text-align: center;
-          margin-top: 0.6rem;
+          margin-top: 0.5rem;
+          font-style: normal;
+          letter-spacing: 0.3px;
         }
+
+        /* ========================================================== */
+        /* SUBHEADING                                                 */
+        /* ========================================================== */
+
         .arsip-subheading {
           font-family: var(--font-inter), sans-serif;
           font-weight: 700;
-          font-size: 0.78rem;
+          font-size: 0.85rem;
           text-transform: uppercase;
-          letter-spacing: 1.2px;
-          color: #9c2963;
-          margin: 1.9rem 0 0.9rem;
+          letter-spacing: 1.5px;
+          color: #2c5282;
+          margin: 2rem 0 1rem;
         }
+
         .arsip-subheading::after {
           content: "";
           display: block;
-          width: 26px;
+          width: 32px;
           height: 2px;
-          background: #9c2963;
+          background: #2c5282;
           margin-top: 0.4rem;
+          border-radius: 2px;
         }
+
+        /* ========================================================== */
+        /* DASAR HUKUM                                                */
+        /* ========================================================== */
+
         .arsip-law {
-          border-left: 3px solid var(--primary-dark);
-          background: #f7f5f0;
-          padding: 0.9rem 1.1rem;
-          margin-top: 1.25rem;
+          border-left: 3.5px solid #2c5282;
+          background: #f8fafc;
+          border-radius: 0 10px 10px 0;
+          padding: 1rem 1.25rem;
+          margin-bottom: 1.25rem;
         }
+
         .arsip-law-ref {
           font-family: var(--font-inter), sans-serif;
           font-weight: 700;
-          font-size: 0.78rem;
+          font-size: 0.8rem;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          color: var(--primary-dark);
+          color: #2c5282;
           margin-bottom: 0.35rem;
         }
+
         .arsip-law-text {
           font-family: serif;
           font-style: italic;
-          color: #2a2a26;
+          color: #334155;
           margin-bottom: 0;
           line-height: 1.7;
+          font-size: 0.95rem;
         }
+
+        /* ========================================================== */
+        /* SECTION                                                     */
+        /* ========================================================== */
+
         .arsip-section {
-          margin-top: 1.5rem;
+          margin-top: 1.25rem;
+          background: #f8fafc;
+          padding: 1.1rem 1.3rem;
+          border-radius: 10px;
+          border: 1px solid #e2e8f0;
         }
+
         .arsip-section-title {
           font-weight: 700;
-          color: var(--text-main, #1e293b);
-          margin-bottom: 0.6rem;
+          color: #0f172a;
+          margin-bottom: 0.65rem;
+          font-size: 0.95rem;
         }
+
         .arsip-section-code {
-          color: var(--accent);
+          color: #2c5282;
         }
+
         .arsip-plain-section {
           margin-top: 1rem;
         }
+
+        /* ========================================================== */
+        /* NOTE                                                        */
+        /* ========================================================== */
+
         .arsip-note {
-          border: 1px solid #c7c1b4;
-          padding: 1rem 1.1rem;
-          margin-top: 1.5rem;
+          border: 1px solid #fbbf24;
+          background-color: rgba(251, 191, 36, 0.08);
+          border-radius: 10px;
+          padding: 1.1rem 1.3rem;
+          margin-top: 1.25rem;
         }
+
         .arsip-note-title {
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.8px;
           font-size: 0.8rem;
-          color: #6e2a2a;
+          color: #b45309;
           margin-bottom: 0.6rem;
         }
+
+        /* ========================================================== */
+        /* LIST                                                        */
+        /* ========================================================== */
+
         .arsip-list {
           list-style: none;
           margin: 0;
           padding: 0;
         }
+
         .arsip-list > li {
           position: relative;
-          padding-left: 1.1rem;
-          margin-bottom: 0.55rem;
+          padding-left: 1.2rem;
+          margin-bottom: 0.5rem;
           line-height: 1.65;
-          color: #2a2a26;
+          color: #334155;
+          font-size: 0.92rem;
         }
+
         .arsip-list > li::before {
           content: "\\2013";
           position: absolute;
           left: 0;
-          color: var(--accent);
+          color: #2c5282;
+          font-weight: bold;
         }
+
         .arsip-list-nested {
           margin-top: 0.5rem;
           margin-left: 0.2rem;
         }
+
         .arsip-list-nested > li::before {
           content: "\\00B7";
         }
+
         .arsip-list-numbered {
           list-style: decimal;
-          padding-left: 1.25rem;
+          padding-left: 1.35rem;
         }
+
         .arsip-list-numbered > li {
           padding-left: 0.35rem;
           margin-bottom: 0.55rem;
           line-height: 1.65;
-          color: #2a2a26;
+          color: #334155;
+          font-size: 0.92rem;
         }
       `}</style>
     </main>

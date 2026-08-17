@@ -447,48 +447,30 @@ export default function SejarahDesa() {
           <div className="row g-5 align-items-start">
 
 
-            {/* FOTO ARSIP */}
+          {/* ===================================================
+              FOTO ARSIP
+          =================================================== */}
 
-            <div className="col-lg-4">
+          {/* ===================================================
+    FOTO ARSIP
+=================================================== */}
 
-              <div
-                className="position-relative w-100 bg-light border border-secondary border-opacity-50 p-2 archive-image"
-                style={{
-                  height: '400px'
-                }}
-              >
-
-                <div
-                  className="w-100 h-100 position-relative border"
-                  style={{
-                    borderColor: '#ced4da'
-                  }}
-                >
-
-                  <Image
-                    src="/placeholder.webp"
-                    alt="Foto Arsip Desa"
-                    fill
-                    className="object-fit-cover"
-                  />
-
-                  <div
-                    className="position-absolute top-50 start-50 translate-middle text-muted bg-white bg-opacity-75 px-3 py-1 rounded"
-                    style={{
-                      fontFamily: 'serif',
-                      fontStyle: 'italic',
-                      fontSize: '0.85rem'
-                    }}
-                  >
-                    Foto Arsip Desa
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
+<div className="col-lg-4 mb-4">
+  <div
+    className="position-relative w-100 overflow-hidden"
+    style={{
+      aspectRatio: '16 / 9',
+    }}
+  >
+    <Image
+      src="/1.jpeg"
+      alt=""
+      fill
+      className="object-fit-cover"
+      sizes="(max-width: 992px) 100vw, 30vw"
+    />
+  </div>
+</div>
 
             {/* TEKS SEJARAH */}
 
