@@ -387,6 +387,7 @@ export default function DetailBeritaPage() {
                     alt={article.title}
                     fill
                     priority
+                    unoptimized={true}
                     className="object-fit-cover"
                     sizes="(max-width: 768px) 100vw, 800px"
                   />
@@ -547,6 +548,7 @@ export default function DetailBeritaPage() {
                             src={item.featured_image || "/musren.webp"}
                             alt={item.title}
                             fill
+                            unoptimized={true}
                             className="object-fit-cover"
                             sizes="85px"
                           />

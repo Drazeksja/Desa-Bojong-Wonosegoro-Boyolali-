@@ -487,39 +487,47 @@ function BeritaContent() {
       );
 
       /* ---------------------------------------------------
-         INSERT LANGSUNG KE DATABASE
+         SIMPAN BERITA KE DATABASE (VIA API & DIRECT FALLBACK)
       --------------------------------------------------- */
 
-      const {
-        data,
-        error,
-      } = await supabase
-        .from("news")
-        .insert(articleData)
-        .select("*")
-        .single();
+      let createdData: NewsArticle | null = null;
 
-      /* ---------------------------------------------------
-         JIKA ERROR
-      --------------------------------------------------- */
+      // 1. Coba melalui backend API (/api/news) yang memiliki service role/bypass RLS aman
+      try {
+        const res = await fetch("/api/news", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(articleData),
+        });
+        const json = await res.json();
+        if (json.success && json.data) {
+          createdData = json.data as NewsArticle;
+        }
+      } catch (apiErr) {
+        console.warn("API /api/news POST failed, trying direct Supabase:", apiErr);
+      }
 
-      if (error) {
-        console.error(
-          "SUPABASE INSERT ERROR:",
-          error
-        );
+      // 2. Jika API route tidak mengembalikan data, coba direct Supabase client
+      if (!createdData) {
+        const { data, error } = await supabase
+          .from("news")
+          .insert(articleData)
+          .select("*")
+          .single();
 
-        throw new Error(
-          error.message ||
-            "Berita gagal disimpan ke database."
-        );
+        if (error) {
+          console.error("SUPABASE INSERT ERROR:", error);
+          throw new Error(error.message || "Berita gagal disimpan ke database.");
+        }
+
+        createdData = data as NewsArticle;
       }
 
       /* ---------------------------------------------------
          JIKA DATA TIDAK KEMBALI
       --------------------------------------------------- */
 
-      if (!data) {
+      if (!createdData) {
         throw new Error(
           "Database tidak mengembalikan data berita."
         );
@@ -527,7 +535,7 @@ function BeritaContent() {
 
       console.log(
         "Berita berhasil disimpan:",
-        data
+        createdData
       );
 
       /* ---------------------------------------------------
@@ -535,10 +543,10 @@ function BeritaContent() {
       --------------------------------------------------- */
 
       setNewsList((prev) => [
-        data as NewsArticle,
+        createdData as NewsArticle,
         ...prev.filter(
           (item) =>
-            item.id !== data.id
+            item.id !== createdData!.id
         ),
       ]);
 
@@ -576,14 +584,6 @@ function BeritaContent() {
         "Gagal membuat berita:",
         error
       );
-
-      /*
-       * PENTING:
-       * Tidak ada lagi localItem.
-       *
-       * Kalau database gagal,
-       * berita TIDAK dimasukkan ke state.
-       */
 
       setAlertMsg({
         type: "error",
@@ -626,23 +626,27 @@ function BeritaContent() {
     try {
       setAlertMsg(null);
 
-      const {
-        error,
-      } = await supabase
-        .from("news")
-        .delete()
-        .eq("id", id);
+      // Coba hapus via API route dulu
+      let isDeleted = false;
+      try {
+        const res = await fetch(`/api/news?id=${id}`, { method: "DELETE" });
+        const json = await res.json();
+        if (json.success) {
+          isDeleted = true;
+        }
+      } catch (e) {
+        // coba direct supabase
+      }
 
-      if (error) {
-        console.error(
-          "SUPABASE DELETE ERROR:",
-          error
-        );
+      if (!isDeleted) {
+        const { error } = await supabase
+          .from("news")
+          .delete()
+          .eq("id", id);
 
-        throw new Error(
-          error.message ||
-            "Berita gagal dihapus."
-        );
+        if (error) {
+          throw new Error(error.message || "Gagal menghapus berita");
+        }
       }
 
       /*
@@ -2020,6 +2024,7 @@ function BeritaContent() {
                             article.title
                           }
                           fill
+                          unoptimized={true}
                           className="
                             object-fit-cover
                             news-image

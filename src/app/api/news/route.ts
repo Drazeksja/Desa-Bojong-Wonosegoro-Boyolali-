@@ -79,16 +79,23 @@ export async function POST(request: Request) {
 
     const newRecord = {
       title,
-      slug,
+      slug: body.slug || (title
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+        .replace(/^-+|-+$/g, "") + "-" + Date.now()),
       category: category || "Berita Desa",
       excerpt: excerpt || title,
       content: content || "",
       featured_image: featured_image || "/musren.webp",
       author: author || "Pemerintah Desa Bojong",
+      location: body.location || "Desa Bojong",
       status: status || "terbit",
       is_featured: Boolean(is_featured),
       views: 0,
-      published_at: new Date().toISOString(),
+      published_at: body.published_at || new Date().toISOString(),
+      created_at: body.created_at || new Date().toISOString(),
     };
 
     const { data, error } = await supabaseServer
@@ -98,6 +105,7 @@ export async function POST(request: Request) {
       .single();
 
     if (error) {
+      console.error("SUPABASE SERVER INSERT ERROR:", error);
       return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
