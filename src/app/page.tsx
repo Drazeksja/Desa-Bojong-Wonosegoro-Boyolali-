@@ -607,7 +607,10 @@ export default function HomeBojong() {
                {/* Content switching based on activeNewsTab */}
                <div className="animate-fade-in">
                    {/* Large Featured News with Terpopuler tag */}
-                   <div className="card border-0 shadow-sm mb-4">
+                   <Link 
+                     href="/berita/musrenbangdes-tahun-2026" 
+                     className="card border-0 shadow-sm mb-4 text-decoration-none overflow-hidden group"
+                   >
                      <div className="position-relative" style={{ height: '400px' }}>
                         <Image 
                           src="/musren.webp" 
@@ -615,21 +618,25 @@ export default function HomeBojong() {
                           fill 
                           className="object-fit-cover object-top"
                         />
-                        <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white" style={{ background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' }}>
+                        <div className="position-absolute bottom-0 start-0 w-100 p-4 text-white" style={{ background: 'linear-gradient(transparent, rgba(0,0,0,0.85))' }}>
                            <div className="d-flex gap-2 mb-2">
                              <span className="badge bg-warning text-dark">{newsData[activeNewsTab].featured.category}</span>
                              <span className="badge bg-danger d-flex align-items-center gap-1"><Star size={10} /> Terpopuler</span>
                            </div>
-                           <h2 className="fw-bold h3">{newsData[activeNewsTab].featured.title}</h2>
+                           <h2 className="fw-bold h3 text-white">{newsData[activeNewsTab].featured.title}</h2>
                            <p className="mb-0 small opacity-75">{newsData[activeNewsTab].featured.date} | Oleh {newsData[activeNewsTab].featured.author}</p>
                         </div>
                      </div>
-                   </div>
+                   </Link>
 
                    {/* List Items with category badges */}
                    <div className="list-group list-group-flush">
                      {newsData[activeNewsTab].list.map((item, i) => (
-                       <a href="#" key={i} className="list-group-item list-group-item-action py-3 d-flex gap-3 align-items-start border-bottom">
+                       <Link 
+                         href="/berita" 
+                         key={i} 
+                         className="list-group-item list-group-item-action py-3 d-flex gap-3 align-items-start border-bottom"
+                       >
                          <div className="flex-shrink-0 position-relative rounded overflow-hidden" style={{ width: '120px', height: '80px' }}>
                            <Image src={item.img} alt="thumb" fill className="object-fit-cover" />
                          </div>
@@ -640,7 +647,7 @@ export default function HomeBojong() {
                            </div>
                            <h6 className="fw-bold mb-1" style={{ color: 'var(--text-main)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{item.title}</h6>
                          </div>
-                       </a>
+                       </Link>
                      ))}
                    </div>
                </div>

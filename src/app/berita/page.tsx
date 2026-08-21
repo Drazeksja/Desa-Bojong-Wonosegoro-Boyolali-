@@ -8,11 +8,7 @@ import React, {
 
 import Image from "next/image";
 import Link from "next/link";
-
-import {
-  useSearchParams,
-  useRouter,
-} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   Search,
@@ -29,107 +25,7 @@ import {
 } from "lucide-react";
 
 import { supabase } from "@/lib/supabase";
-
-/* =========================================================
-   TYPE
-========================================================= */
-
-interface NewsArticle {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  excerpt: string;
-  content: string;
-  featured_image: string | null;
-  author: string;
-  status: string;
-  is_featured: boolean;
-  views: number;
-  created_at: string;
-  published_at: string | null;
-}
-
-/* =========================================================
-   DEFAULT NEWS
-   Hanya digunakan sebagai berita demo jika database
-   belum memiliki data.
-========================================================= */
-
-const DEFAULT_NEWS: NewsArticle[] = [
-  {
-    id: "demo-1",
-    title:
-      "Musrenbangdes Tahun 2026: Penetapan RKPDes untuk Kemajuan Desa Bojong",
-    slug: "musrenbangdes-tahun-2026",
-    category: "Pemerintahan",
-    excerpt:
-      "Pemerintah Desa Bojong sukses menggelar Musyawarah Perencanaan Pembangunan Desa (Musrenbangdes) penetapan RKPDes 2026 bersama BPD dan tokoh masyarakat.",
-    content:
-      "Musyawarah Perencanaan Pembangunan Desa (Musrenbangdes) tahun 2026 di Desa Bojong telah sukses dilaksanakan di Balai Desa Bojong. Kegiatan penting ini dihadiri oleh Kepala Desa Bojong, seluruh perangkat desa, Badan Permusyawaratan Desa (BPD), Ketua RT/RW, Tokoh Agama, Tokoh Masyarakat, perwakilan perempuan, serta Karang Taruna.\n\nDalam musyawarah ini, dibahas berbagai usulan prioritas pembangunan di bidang infrastruktur jalan pertanian, pemberdayaan ekonomi masyarakat melalui kelompok tani dan UMKM, serta peningkatan sarana kesehatan desa seperti Posyandu dan Posbindu.\n\nKepala Desa Bojong menegaskan pentingnya partisipasi aktif seluruh elemen warga dalam mengawal setiap proses perencanaan hingga realisasi anggaran demi kemajuan bersama yang transparan dan akuntabel.",
-    featured_image: "/musren.webp",
-    author: "Pemerintah Desa Bojong",
-    status: "terbit",
-    is_featured: true,
-    views: 185,
-    created_at: "2026-08-10T10:00:00Z",
-    published_at: "2026-08-10T10:00:00Z",
-  },
-  {
-    id: "demo-2",
-    title:
-      "Pemberdayaan UMKM Kripik & Jamu Tradisional Khas Desa Bojong",
-    slug: "pemberdayaan-umkm-desa-bojong",
-    category: "Potensi Desa",
-    excerpt:
-      "Program pendampingan dan promosi produk unggulan lokal desa guna memperluas jangkauan pasar para pelaku usaha mikro di Bojong.",
-    content:
-      "Desa Bojong memiliki potensi UMKM yang sangat menjanjikan, mulai dari olahan kripik singkong, kripik pisang, hingga jamu tradisional yang dibuat dengan resep turun-temurun.\n\nPemerintah Desa Bojong bekerja sama dengan mahasiswa KKN dan pihak terkait memberikan pendampingan untuk pengembangan produk dan pemasaran.",
-    featured_image: "/kripik.jpeg",
-    author: "Tim Penggerak UMKM",
-    status: "terbit",
-    is_featured: false,
-    views: 124,
-    created_at: "2026-08-08T09:00:00Z",
-    published_at: "2026-08-08T09:00:00Z",
-  },
-  {
-    id: "demo-3",
-    title:
-      "Penyuluhan Perilaku Hidup Bersih & Sehat di Desa Bojong",
-    slug: "penyuluhan-phbs-desa-bojong",
-    category: "Kesehatan",
-    excerpt:
-      "Bidan desa dan kader kesehatan memberikan edukasi mengenai perilaku hidup bersih dan sehat kepada masyarakat Desa Bojong.",
-    content:
-      "Sebagai upaya mewujudkan masyarakat yang sehat, Kader Kesehatan Desa Bojong bersama Bidan Desa menyelenggarakan kegiatan edukasi PHBS.",
-    featured_image: "/anak.webp",
-    author: "Kader Posyandu Bojong",
-    status: "terbit",
-    is_featured: false,
-    views: 98,
-    created_at: "2026-08-05T08:30:00Z",
-    published_at: "2026-08-05T08:30:00Z",
-  },
-  {
-    id: "demo-4",
-    title:
-      "Kerja Bakti Massal Sambut HUT RI di Lingkungan Desa Bojong",
-    slug: "kerja-bakti-massal-hut-ri",
-    category: "Kegiatan Warga",
-    excerpt:
-      "Warga antusias membersihkan jalan desa, saluran drainase, serta memasang umbul-umbul merah putih.",
-    content:
-      "Semangat gotong royong warga Desa Bojong tampak nyata dalam kegiatan kerja bakti bersama warga.",
-    featured_image: "/bg.webp",
-    author: "Karang Taruna Bojong",
-    status: "terbit",
-    is_featured: false,
-    views: 110,
-    created_at: "2026-08-01T07:00:00Z",
-    published_at: "2026-08-01T07:00:00Z",
-  },
-];
+import { NewsArticle, DEFAULT_NEWS } from "@/lib/newsData";
 
 /* =========================================================
    CATEGORY
@@ -149,7 +45,6 @@ const CATEGORIES = [
 ========================================================= */
 
 function BeritaContent() {
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   /* -------------------------------------------------------
@@ -167,6 +62,9 @@ function BeritaContent() {
 
   const [loading, setLoading] =
     useState(true);
+
+  const [selectedArticle, setSelectedArticle] =
+    useState<NewsArticle | null>(null);
 
   /* -------------------------------------------------------
      SEARCH & FILTER
@@ -230,19 +128,14 @@ function BeritaContent() {
   ======================================================= */
 
   useEffect(() => {
-    const adminParam =
-      searchParams.get("admin");
-
+    // Login admin disimpan oleh halaman login.
+    // Parameter URL ?admin=true tidak dianggap sebagai autentikasi.
     const storedAuth =
       typeof window !== "undefined" &&
-      localStorage.getItem(
-        "desa_admin_auth"
-      ) === "true";
+      localStorage.getItem("desa_admin_auth") === "true";
 
-    if (adminParam === "true" || storedAuth) {
-      setIsAdmin(true);
-    }
-  }, [searchParams]);
+    setIsAdmin(Boolean(storedAuth));
+  }, []);
 
   /* =======================================================
      LOAD NEWS
@@ -250,72 +143,56 @@ function BeritaContent() {
 
   const loadNews = async () => {
     setLoading(true);
+    setAlertMsg(null);
 
     try {
-      const {
-        data,
-        error,
-      } = await supabase
+      /*
+       * Pengunjung publik hanya membaca berita yang sudah terbit.
+       * Query ini sengaja disamakan dengan policy RLS:
+       * USING (status = 'terbit')
+       */
+      const { data, error } = await supabase
         .from("news")
-        .select("*")
+        .select(
+          "id,title,slug,category,excerpt,content,featured_image,author,status,is_featured,views,created_at,published_at"
+        )
+        .eq("status", "terbit")
+        .order("published_at", {
+          ascending: false,
+          nullsFirst: false,
+        })
         .order("created_at", {
           ascending: false,
         });
 
       if (error) {
-        console.error(
-          "Gagal mengambil berita:",
-          error
-        );
+        console.error("SUPABASE NEWS SELECT ERROR:", {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code,
+        });
 
-        /*
-         * Jika database error, jangan diam-diam
-         * menganggap semuanya berhasil.
-         */
+        setNewsList([]);
         setAlertMsg({
           type: "error",
           text:
-            "Gagal mengambil data berita dari database.",
+            `Gagal mengambil berita dari Supabase: ${
+              error.message || "error tidak diketahui"
+            }`,
         });
-
-        /*
-         * Berita demo tetap ditampilkan agar
-         * halaman tidak kosong.
-         */
-        setNewsList(DEFAULT_NEWS);
-
         return;
       }
 
-      /*
-       * Kalau database kosong,
-       * tampilkan berita demo.
-       */
-      if (!data || data.length === 0) {
+      if (data && data.length > 0) {
+        setNewsList(data as NewsArticle[]);
+      } else {
+        // Gunakan DEFAULT_NEWS jika database belum ada baris berita terbit
         setNewsList(DEFAULT_NEWS);
-        return;
       }
-
-      /*
-       * Kalau database berhasil,
-       * gunakan data database.
-       */
-      setNewsList(
-        data as NewsArticle[]
-      );
-    } catch (error) {
-      console.error(
-        "Error loadNews:",
-        error
-      );
-
+    } catch (error: any) {
+      console.error("LOAD NEWS EXCEPTION:", error);
       setNewsList(DEFAULT_NEWS);
-
-      setAlertMsg({
-        type: "error",
-        text:
-          "Terjadi kesalahan saat memuat berita.",
-      });
     } finally {
       setLoading(false);
     }
@@ -1610,13 +1487,18 @@ function BeritaContent() {
                       small
                       text-muted
                       mt-1
+                      d-flex
+                      justify-content-between
                     ">
-                      Karakter:{" "}
-                      <strong>
-                        {formData.content.length.toLocaleString(
-                          "id-ID"
-                        )}
-                      </strong>
+                      <span>💡 <em>Tips: Tekan <strong>Enter 2x</strong> antar paragraf untuk memberi jeda dan jarak baca yang rapi.</em></span>
+                      <span>
+                        Karakter:{" "}
+                        <strong>
+                          {formData.content.length.toLocaleString(
+                            "id-ID"
+                          )}
+                        </strong>
+                      </span>
                     </div>
 
                   </div>
@@ -2092,11 +1974,13 @@ function BeritaContent() {
 
                       {/* FOTO */}
 
-                      <div
+                      <Link
+                        href={`/berita/${article.slug || article.id}`}
                         className="
                           position-relative
                           w-100
                           overflow-hidden
+                          d-block
                         "
                         style={{
                           height:
@@ -2160,7 +2044,7 @@ function BeritaContent() {
 
                         </div>
 
-                      </div>
+                      </Link>
 
                       {/* BODY */}
 
@@ -2235,18 +2119,22 @@ function BeritaContent() {
                         >
 
                           <Link
-                            href={`/berita/${
-                              article.slug ||
-                              article.id
-                            }`}
+                            href={`/berita/${article.slug || article.id}`}
                             className="
+                              text-start
                               text-decoration-none
                               text-dark
+                              fw-bold
+                              hover-primary
+                              d-block
                             "
+                            style={{
+                              fontSize: "1.05rem",
+                              lineHeight: 1.45,
+                              fontFamily: "serif",
+                            }}
                           >
-                            {
-                              article.title
-                            }
+                            {article.title}
                           </Link>
 
                         </h5>
@@ -2286,10 +2174,7 @@ function BeritaContent() {
                         ">
 
                           <Link
-                            href={`/berita/${
-                              article.slug ||
-                              article.id
-                            }`}
+                            href={`/berita/${article.slug || article.id}`}
                             className="
                               fw-semibold
                               small
@@ -2299,18 +2184,11 @@ function BeritaContent() {
                               text-decoration-none
                             "
                             style={{
-                              color:
-                                "#2c5282",
+                              color: "#2c5282",
                             }}
                           >
-                            <span>
-                              Baca
-                              Selengkapnya
-                            </span>
-
-                            <ChevronRight
-                              size={14}
-                            />
+                            <span>Baca Selengkapnya</span>
+                            <ChevronRight size={14} />
                           </Link>
 
                           {isAdmin && (
@@ -2352,7 +2230,6 @@ function BeritaContent() {
           )}
 
       </div>
-
     </main>
   );
 }
