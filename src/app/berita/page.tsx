@@ -265,42 +265,64 @@ function BeritaContent() {
     setUploadingImg(true);
 
     try {
-      const fd = new FormData();
+      let uploadedUrl = "";
 
-      fd.append("file", file);
+      // 1. Coba upload langsung dari Supabase Client ke bucket 'news-images'
+      try {
+        const fileExt = file.name.includes('.') ? file.name.substring(file.name.lastIndexOf('.')) : '.jpg';
+        const cleanName = `news-${Date.now()}-${Math.random().toString(36).substring(2, 7)}${fileExt.toLowerCase()}`;
+        
+        const { data: directUpload, error: directErr } = await supabase.storage
+          .from("news-images")
+          .upload(`uploads/${cleanName}`, file, {
+            contentType: file.type || "image/jpeg",
+            upsert: true,
+          });
 
-      const res = await fetch(
-        "/api/upload",
-        {
+        if (!directErr && directUpload) {
+          const { data: urlRes } = supabase.storage
+            .from("news-images")
+            .getPublicUrl(`uploads/${cleanName}`);
+          if (urlRes?.publicUrl) {
+            uploadedUrl = urlRes.publicUrl;
+          }
+        }
+      } catch (dErr) {
+        // lanjut ke /api/upload
+      }
+
+      // 2. Jika belum berhasil, panggil /api/upload
+      if (!uploadedUrl) {
+        const fd = new FormData();
+        fd.append("file", file);
+
+        const res = await fetch("/api/upload", {
           method: "POST",
           body: fd,
+        });
+
+        const json = await res.json();
+
+        if (!res.ok || !json.success || !json.url) {
+          throw new Error(
+            json.message || "Gagal mengunggah gambar."
+          );
         }
-      );
 
-      const json = await res.json();
-
-      if (!res.ok || !json.success || !json.url) {
-        throw new Error(
-          json.message ||
-            "Gagal mengunggah gambar."
-        );
+        uploadedUrl = json.url;
       }
 
       setFormData((prev) => ({
         ...prev,
-        featured_image: json.url,
+        featured_image: uploadedUrl,
       }));
 
       setAlertMsg({
         type: "success",
-        text:
-          "Gambar berhasil diunggah.",
+        text: "Gambar berhasil diunggah.",
       });
     } catch (error: any) {
-      console.error(
-        "Upload error:",
-        error
-      );
+      console.error("Upload error:", error);
 
       setImageFile(null);
       setImagePreview("");
@@ -314,8 +336,7 @@ function BeritaContent() {
         type: "error",
         text:
           "Gagal mengunggah gambar: " +
-          (error?.message ||
-            "Error tidak diketahui."),
+          (error?.message || "Error tidak diketahui."),
       });
     } finally {
       setUploadingImg(false);
