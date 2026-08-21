@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const cinzel = Cinzel_Decorative({ subsets: ["latin"], weight: ["400", "700", "900"], variable: "--font-cinzel" });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://desa-bojong-wonosegoro-boyolali.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.desabojongboyolali.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
