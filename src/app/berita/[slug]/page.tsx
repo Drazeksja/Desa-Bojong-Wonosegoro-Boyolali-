@@ -165,11 +165,37 @@ export default function DetailBeritaPage() {
     }
   };
 
-  const handleShare = () => {
-    if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(window.location.href);
+  const handleShare = async () => {
+    if (typeof window === "undefined") return;
+
+    const url = window.location.href;
+
+    // Format Rich HTML: Hanya tautan URL saja berwarna biru dan bergaris bawah (clickable di Word, Docs, Email, dll)
+    const htmlFormatted = `<a href="${url}" style="color: #2563eb; text-decoration: underline;">${url}</a>`;
+
+    try {
+      if (navigator.clipboard && window.ClipboardItem) {
+        const textBlob = new Blob([url], { type: "text/plain" });
+        const htmlBlob = new Blob([htmlFormatted], { type: "text/html" });
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            "text/plain": textBlob,
+            "text/html": htmlBlob,
+          }),
+        ]);
+      } else {
+        await navigator.clipboard.writeText(url);
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      try {
+        await navigator.clipboard.writeText(url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      } catch (fallbackErr) {
+        console.error("Gagal menyalin link:", fallbackErr);
+      }
     }
   };
 
