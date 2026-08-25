@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollAnimate from "@/components/ScrollAnimate";
-import ChatbotWidget from "@/components/ChatbotWidget";
+import FloatingQuickActions from "@/components/FloatingQuickActions";
 
 export default function RootLayout({
   children,
@@ -81,7 +81,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        <ChatbotWidget />
+        <FloatingQuickActions />
       </body>
     </html>
   );
