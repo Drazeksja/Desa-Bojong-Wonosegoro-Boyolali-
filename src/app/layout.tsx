@@ -37,6 +37,15 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/LOGO.webp", type: "image/webp" },
+    ],
+    shortcut: "/LOGO.webp",
+    apple: [
+      { url: "/LOGO.webp", type: "image/webp" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "id_ID",
@@ -46,18 +55,18 @@ export const metadata: Metadata = {
     description: "Website resmi Desa Bojong, Kecamatan Wonosegoro, Kabupaten Boyolali. Pusat informasi kependudukan, layanan warga, dan transparansi APBDes.",
     images: [
       {
-        url: "/musren.webp",
-        width: 1200,
-        height: 630,
-        alt: "Desa Bojong, Wonosegoro, Boyolali",
+        url: "/LOGO.webp",
+        width: 800,
+        height: 800,
+        alt: "Logo Resmi Desa Bojong, Wonosegoro, Boyolali",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Website Resmi Desa Bojong",
     description: "Website resmi Desa Bojong, Kecamatan Wonosegoro, Kabupaten Boyolali.",
-    images: ["/musren.webp"],
+    images: ["/LOGO.webp"],
   },
   alternates: {
     canonical: siteUrl,

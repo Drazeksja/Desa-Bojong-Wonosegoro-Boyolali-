@@ -106,7 +106,7 @@ export default function Navbar() {
         <a className="navbar-brand d-flex align-items-center gap-3 text-white" href="/">
           <div className="position-relative rounded-circle overflow-hidden" 
                style={{ width: '45px', height: '45px', background: 'white' }}>
-            <Image src="/logo.jpeg" alt="Logo Desa Bojong" fill className="object-fit-contain p-1" />
+            <Image src="/logo.jpeg" alt="Logo Desa Bojong" fill className="object-fit-contain p-1" priority />
           </div>
           <div className="d-flex flex-column lh-1 navbar-brand-text text-white">
             <span className="fw-bold text-uppercase" style={{ fontSize: '0.8rem', letterSpacing: '1px' }}>Pemerintah Desa</span>

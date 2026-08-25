@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="d-flex align-items-center gap-3 mb-4">
               <div className="position-relative rounded-circle overflow-hidden" 
                    style={{ width: '50px', height: '50px', background: 'white' }}>
-                <Image src="/logo.jpeg" alt="Logo Desa Bojong" fill className="object-fit-contain p-1" />
+                <Image src="/LOGO.webp" alt="Logo Desa Bojong" fill className="object-fit-contain p-1" />
               </div>
               <div>
                 <h5 className="fw-bold text-uppercase m-0 lh-1">Pemerintah<br/>Desa Bojong</h5>
